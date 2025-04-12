@@ -20,7 +20,31 @@
                     <a href="#projects">Projects</a>
                     <a href="#contact">Contact</a>
                 </div>
-                <button class="theme-toggle" id="theme-toggle">🌙</button>
+                <div class="header-controls">
+                    <button class="theme-toggle" id="theme-toggle">🌙</button>
+                    <div class="dropdown">
+                        <button class="settings-toggle" id="settings-toggle"><i class="fas fa-cog"></i></button>
+                        <div class="settings-dropdown" id="settings-menu">
+                            <div class="settings-section">
+                                <h4>Theme</h4>
+                                <div class="dropdown-list">
+                                    <button class="dropdown-item theme-option" data-theme="light"><i class="fas fa-sun"></i> Light</button>
+                                    <button class="dropdown-item theme-option" data-theme="dark"><i class="fas fa-moon"></i> Dark</button>
+                                    <button class="dropdown-item theme-option" data-theme="sunset"><i class="fas fa-fire"></i> Sunset</button>
+                                    <button class="dropdown-item theme-option" data-theme="ocean"><i class="fas fa-water"></i> Ocean</button>
+                                    <button class="dropdown-item theme-option" data-theme="forest"><i class="fas fa-leaf"></i> Forest</button>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h4>Language</h4>
+                                <div class="dropdown-list">
+                                    <button class="dropdown-item language-option" data-lang="en"><i class="fas fa-globe"></i> English</button>
+                                    <button class="dropdown-item language-option" data-lang="sr"><i class="fas fa-globe"></i> Serbian</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="mobile-menu" id="mobile-menu">☰</div>
             </nav>
         </div>

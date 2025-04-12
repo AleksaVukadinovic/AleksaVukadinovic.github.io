@@ -12,6 +12,34 @@
     --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.07);
     --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.2);
     --transition: all 0.3s ease;
+
+    /* New theme: Sunset */
+    --sunset-primary: #FF5E62;
+    --sunset-secondary: #FF9966;
+    --sunset-bg: #FFF8E8;
+    --sunset-text: #333333;
+    --sunset-card-bg: rgba(255, 255, 255, 0.9);
+    
+    /* New theme: Ocean */
+    --ocean-primary: #00B4DB;
+    --ocean-secondary: #0083B0;
+    --ocean-bg: #EBF8FF;
+    --ocean-text: #2C3E50;
+    --ocean-card-bg: rgba(255, 255, 255, 0.9);
+    
+    /* New theme: Forest */
+    --forest-primary: #56AB2F;
+    --forest-secondary: #2C5E1A;
+    --forest-bg: #F6FFF0;
+    --forest-text: #333333;
+    --forest-card-bg: rgba(255, 255, 255, 0.9);
+    
+    /* New theme: Night */
+    --night-primary: #9D50BB;
+    --night-secondary: #6E48AA;
+    --night-bg: #131725;
+    --night-text: #E0E0E0;
+    --night-card-bg: rgba(35, 35, 55, 0.8);
 }
 
 * {
@@ -42,6 +70,61 @@ body.dark-mode {
     color: var(--text);
 }
 
+/* Theme classes */
+body.dark-theme {
+    --primary: #4A76F9;
+    --secondary: #00599C;
+    --light: #1A1A2E;
+    --text: #f5f5f7;
+    --card-bg: rgba(35, 35, 55, 0.8);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-color: var(--light);
+    color: var(--text);
+}
+
+body.sunset-theme {
+    --primary: var(--sunset-primary);
+    --secondary: var(--sunset-secondary);
+    --light: var(--sunset-bg);
+    --text: var(--sunset-text);
+    --card-bg: var(--sunset-card-bg);
+    background-color: var(--light);
+    color: var(--text);
+}
+
+body.ocean-theme {
+    --primary: var(--ocean-primary);
+    --secondary: var(--ocean-secondary);
+    --light: var(--ocean-bg);
+    --text: var(--ocean-text);
+    --card-bg: var(--ocean-card-bg);
+    background-color: var(--light);
+    color: var(--text);
+}
+
+body.forest-theme {
+    --primary: var(--forest-primary);
+    --secondary: var(--forest-secondary);
+    --light: var(--forest-bg);
+    --text: var(--forest-text);
+    --card-bg: var(--forest-card-bg);
+    background-color: var(--light);
+    color: var(--text);
+}
+
+body.night-theme {
+    --primary: var(--night-primary);
+    --secondary: var(--night-secondary);
+    --light: var(--night-bg);
+    --text: var(--night-text);
+    --card-bg: var(--night-card-bg);
+    --border-light: var(--border-dark);
+    --shadow-light: var(--shadow-dark);
+    background-color: var(--light);
+    color: var(--text);
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -58,6 +141,33 @@ header {
     background-color: rgba(245, 245, 247, 0.8);
     border-bottom: 1px solid transparent;
     transition: var(--transition), background-color 0.3s ease, border-bottom 0.3s ease;
+}
+
+header {
+    background-color: rgba(245, 245, 247, 0.8);
+    border-bottom: 1px solid transparent;
+}
+
+body.dark-theme header {
+    background-color: rgba(26, 26, 46, 0.8);
+    border-bottom-color: var(--border-dark);
+}
+
+body.sunset-theme header {
+    background-color: rgba(255, 248, 232, 0.8);
+}
+
+body.ocean-theme header {
+    background-color: rgba(235, 248, 255, 0.8);
+}
+
+body.forest-theme header {
+    background-color: rgba(246, 255, 240, 0.8);
+}
+
+body.night-theme header {
+    background-color: rgba(19, 23, 37, 0.8);
+    border-bottom-color: var(--border-dark);
 }
 
 body.dark-mode header {
@@ -822,4 +932,158 @@ footer {
     .footer-link {
         font-size: 1.5rem;
     }
+}
+/* Settings and Dropdown Menu Styles */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    position: relative;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg);
+}
+
+/* Settings toggle button */
+.settings-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-toggle:hover {
+    transform: rotate(30deg);
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Settings dropdown menu */
+.settings-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: var(--bg-secondary, #fff);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+    overflow: hidden;
+}
+
+.settings-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Settings sections */
+.settings-section {
+    padding: 0;
+    border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+}
+
+.settings-section h4 {
+    margin: 0;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary, #666);
+    background-color: var(--bg-tertiary, #f9f9f9);
+}
+
+/* Dropdown list */
+.dropdown-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Dropdown items */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary, #333);
+    font-size: 14px;
+    transition: background-color 0.2s;
+    gap: 10px;
+}
+
+.dropdown-item i {
+    width: 16px;
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background-color: var(--bg-hover, rgba(0, 0, 0, 0.05));
+}
+
+.dropdown-item.active {
+    background-color: var(--primary, #4A76F9);
+    color: white;
+}
+
+/* Theme-specific icon colors */
+.theme-option[data-theme="light"] i {
+    color: #f39c12;
+}
+
+.theme-option[data-theme="dark"] i {
+    color: #8e44ad;
+}
+
+.theme-option[data-theme="sunset"] i {
+    color: #e74c3c;
+}
+
+.theme-option[data-theme="ocean"] i {
+    color: #3498db;
+}
+
+.theme-option[data-theme="forest"] i {
+    color: #27ae60;
+}
+
+/* Remove conflicting styles */
+.theme-options, .language-options {
+    display: none;
+}
+
+.theme-dropdown {
+    display: none;
 }

@@ -1,103 +1,74 @@
 const themeToggle = document.getElementById('theme-toggle');
+const settingsToggle = document.getElementById('settings-toggle');
+const settingsMenu = document.getElementById('settings-menu');
+const themeOptions = document.querySelectorAll('.theme-option');
+const languageOptions = document.querySelectorAll('.language-option');
 const body = document.body;
-
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    body.classList.toggle('dark-mode', savedTheme === 'dark');
-    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-} else {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    body.classList.toggle('dark-mode', prefersDark);
-    themeToggle.textContent = prefersDark ? '☀️' : '🌙';
-}
-
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const isDark = body.classList.contains('dark-mode');
-    themeToggle.textContent = isDark ? '☀️' : '🌙';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-});
-
 const mobileMenu = document.getElementById('mobile-menu');
 const navLinks = document.querySelector('.nav-links');
 
-mobileMenu.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    mobileMenu.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+const savedTheme = localStorage.getItem('theme') || 'light';
+setTheme(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
 });
 
-const navItems = document.querySelectorAll('.nav-links a');
-navItems.forEach(item => {
-    item.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        mobileMenu.textContent = '☰';
-    });
+settingsToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    settingsMenu.classList.toggle('active');
 });
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop,
-                behavior: 'smooth'
-            });
-        }
-    });
+document.addEventListener('click', (e) => {
+    if (!settingsMenu.contains(e.target) && !settingsToggle.contains(e.target)) {
+        settingsMenu.classList.remove('active');
+    }
 });
 
-const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+themeOptions.forEach(option => {
+    const theme = option.getAttribute('data-theme');
     
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        subject: document.getElementById('subject').value,
-        message: document.getElementById('message').value
-    };
-    
-    if (!formData.name || !formData.email || !formData.message) {
-        alert('Please fill out all required fields.');
-        return;
+    if (theme === savedTheme) {
+        option.classList.add('active');
     }
     
-    alert('Thank you for your message! I\'ll get back to you soon.');
-    contactForm.reset();
-});
-
-const currentYearElement = document.getElementById('current-year');
-currentYearElement.textContent = new Date().getFullYear();
-
-const animateOnScroll = () => {
-    const elements = document.querySelectorAll('.skill-category, .contact-method, .about-text p, .about-image');
-    
-    elements.forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.2;
-        
-        if (elementPosition < screenPosition) {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }
+    option.addEventListener('click', () => {
+        setTheme(theme);
+        themeOptions.forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+        settingsMenu.classList.remove('active');
     });
-};
-
-document.querySelectorAll('.skill-category, .contact-method').forEach(element => {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(20px)';
-    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
 });
 
-document.querySelectorAll('.about-text p').forEach((element, index) => {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(20px)';
-    element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-});
+function setTheme(theme) {
+    body.classList.remove('light-theme', 'dark-theme', 'sunset-theme', 'ocean-theme', 'forest-theme', 'night-theme');    
+    body.classList.add(`${theme}-theme`);
+    
+    themeToggle.innerHTML = theme === 'dark' || theme === 'night' ? '☀️' : '🌙';
+    
+    localStorage.setItem('theme', theme);
+    
+    themeOptions.forEach(option => {
+        const optionTheme = option.getAttribute('data-theme');
+        option.classList.toggle('active', optionTheme === theme);
+    });
+}
 
-window.addEventListener('load', animateOnScroll);
-window.addEventListener('scroll', animateOnScroll);
+languageOptions.forEach(option => {
+    const lang = option.getAttribute('data-lang');
+    const savedLang = localStorage.getItem('language') || 'en';
+    
+    if (lang === savedLang) {
+        option.classList.add('active');
+    }
+    
+    option.addEventListener('click', () => {
+        localStorage.setItem('language', lang);
+        languageOptions.forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+        settingsMenu.classList.remove('active');
+        console.log(`Language switched to: ${lang}`);
+    });
+})
