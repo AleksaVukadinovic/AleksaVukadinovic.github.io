@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aleksa Vukadinović | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,6 +16,7 @@
                     <a href="#hero">Home</a>
                     <a href="#about">About</a>
                     <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
                     <a href="#contact">Contact</a>
                 </div>
                 <button class="theme-toggle" id="theme-toggle">🌙</button>
@@ -29,6 +31,7 @@
                 <h1 class="hero-title">Aleksa Vukadinović</h1>
                 <h2 class="hero-subtitle">Full-Stack Developer & Computer Science Student</h2>
                 <p>Passionate about AI, Compilers, and Computer Graphics</p>
+                <p>---This website is work in progress!---</p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">Get in Touch</a>
                     <a href="#skills" class="btn btn-secondary">See My Skills</a>
@@ -64,7 +67,7 @@
         <div class="container">
             <h2 class="section-title">Tech Stack</h2>
             <div class="skills-container">
-    
+
                 <div class="skill-category">
                     <h3>Programming Languages</h3>
                     <div class="skill-tags">
@@ -91,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="skill-category">
                     <h3>Web & Backend</h3>
                     <div class="skill-tags">
@@ -118,7 +121,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="skill-category">
                     <h3>Graphics & Databases</h3>
                     <div class="skill-tags">
@@ -133,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="skill-category">
                     <h3>Tools & Others</h3>
                     <div class="skill-tags">
@@ -145,59 +148,122 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
         </div>
     </section>
-    
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-container">
+                <div class="project-card">
+                    <h3 class="project-title">DigitEye - AI Image Recognition</h3>
+                    <p class="project-description">Developed a neural network in Python using TensorFlow and Keras, trained on the MNIST dataset for recognizing handwritten digits. The model successfully identifies digits with 90% accuracy and supports custom parameters like layer count and epochs.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">TensorFlow</span>
+                        <span class="project-tag">Keras</span>
+                        <span class="project-tag">AI</span>
+                        <span class="project-tag">Neural Network</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                        <!-- <a href="#" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Starfall Shores - OpenGL with custom engine</h3>
+                    <p class="project-description">Developed a custom graphics engine for a university course project, utilizing OpenGL and GLSL shaders. Implemented advanced rendering techniques such as GPU instancing for efficiency and a bloom post-processing effect for enhanced visuals.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">C++</span>
+                        <span class="project-tag">OpenGL</span>
+                        <span class="project-tag">GLSL</span>
+                        <span class="project-tag">Computer Graphics</span>
+                        <span class="project-tag">Engine</span>
+                        <span class="project-tag">Instancing</span>
+                        <span class="project-tag">Bloom</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                        <!-- Add link to demo video or live demo if available -->
+                    </div>
+                </div>
+                 <div class="project-card">
+                    <h3 class="project-title">Volley of Rockets - Physics Simulation</h3>
+                    <p class="project-description">Collaborated in a team of two to develop a Python simulation modeling the trajectories of projectiles launched into a tornado with varying angles and velocities. This was created as part of the Introduction to Mechanics university course.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Simulation</span>
+                        <span class="project-tag">Physics</span>
+                        <span class="project-tag">Teamwork</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">AmbroAI - Allergy Prediction Model</h3>
+                    <p class="project-description">Created an AI model based on linear regression in Python during 'The Great Hacka' hackathon. The model predicts the number of potential allergic reactions within a population based on geographic location and size.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">AI</span>
+                        <span class="project-tag">Linear Regression</span>
+                        <span class="project-tag">Hackathon</span>
+                        <span class="project-tag">Data Science</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">KIAA - Algorithm Course Materials</h3>
+                    <p class="project-description">Developed C++ code materials for the 'Construction and Analysis of Algorithms' course. Implemented advanced data structures like Tries, Segment Trees (including Lazy), Fenwick Trees, and complex algorithms such as FFT, KMP, Z-array, and Manacher.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">C++</span>
+                        <span class="project-tag">Algorithms</span>
+                        <span class="project-tag">Data Structures</span>
+                        <span class="project-tag">FFT</span>
+                        <span class="project-tag">KMP</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section id="contact">
         <div class="container">
             <h2 class="section-title">Get in Touch</h2>
             <div class="contact-container">
                 <div class="contact-info">
-                    <div class="contact-method">
-                        <div class="contact-icon">✉️</div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <a href="mailto:alexvukadin8@gmail.com">alexvukadin8@gmail.com</a>
+                    <p>Feel free to reach out! I'm always open to discussing new projects, creative ideas, or opportunities to collaborate.</p>
+                    <div class="contact-methods-wrapper">
+                        <div class="contact-method">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <a href="mailto:alexvukadin8@gmail.com">alexvukadin8@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                            <div class="contact-details">
+                                <h4>LinkedIn</h4>
+                                <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" target="_blank">Aleksa Vukadinović</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-icon"><i class="fab fa-github"></i></div>
+                            <div class="contact-details">
+                                <h4>GitHub</h4>
+                                <a href="https://github.com/AleksaVukadinovic" target="_blank">GitHub Profile</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="contact-method">
-                        <div class="contact-icon">💼</div>
-                        <div class="contact-details">
-                            <h4>LinkedIn</h4>
-                            <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" target="_blank">Aleksa Vukadinović</a>
-                        </div>
-                    </div>
-                    <div class="contact-method">
-                        <div class="contact-icon">🌐</div>
-                        <div class="contact-details">
-                            <h4>GitHub</h4>
-                            <a href="https://github.com/AleksaVukadinovic" target="_blank">GitHub Profile</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -205,12 +271,12 @@
 
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="https://github.com/AleksaVukadinovic" class="footer-link" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" class="footer-link" target="_blank">LinkedIn</a>
-                <a href="mailto:alexvukadin8@gmail.com" class="footer-link">Email</a>
+            <div class="footer-social-links">
+                <a href="https://github.com/AleksaVukadinovic" class="footer-link" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" class="footer-link" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:alexvukadin8@gmail.com" class="footer-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="copyright">© <span id="current-year">2025</span> Aleksa Vukadinović. All rights reserved.</p>
+            <p class="copyright">© <span id="current-year">2024</span> Aleksa Vukadinović. All rights reserved.</p>
         </div>
     </footer>
     <script src="script.js"></script>
