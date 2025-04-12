@@ -299,7 +299,15 @@ body.dark-mode #about {
     margin-top: 1rem;
 }
 
+
+.interest-tag i {
+    margin-right: 0.5em;
+}
+
+
 .interest-tag {
+    display: inline-flex;
+    align-items: center;
     background-color: rgba(74, 118, 249, 0.15);
     color: var(--primary);
     padding: 0.5rem 1.2rem;
