@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KIAA - Algorithm Course Materials | Aleksa Vukadinović</title>
+    <link rel="icon" href="./assets/github-mark-white.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="./../style.css" />
+    <link rel="stylesheet" href="projectPage.css" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html#hero" class="logo">Aleksa.dev</a>
+                <div class="nav-links">
+                    <a href="index.html#hero">Home</a>
+                    <a href="index.html#about">About</a>
+                    <a href="index.html#skills">Skills</a>
+                    <a href="index.html#projects">Projects</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+                <div class="header-controls">
+                    <button class="theme-toggle" id="theme-toggle">🌙</button>
+                    <div class="dropdown">
+                        <button class="settings-toggle" id="settings-toggle"><i class="fas fa-cog"></i></button>
+                        <div class="settings-dropdown" id="settings-menu">
+                            <div class="settings-section">
+                                <h4>Theme</h4>
+                                <div class="dropdown-list">
+                                    <button class="dropdown-item theme-option" data-theme="light"><i class="fas fa-sun"></i> Light</button>
+                                    <button class="dropdown-item theme-option" data-theme="dark"><i class="fas fa-moon"></i> Dark</button>
+                                    <button class="dropdown-item theme-option" data-theme="sunset"><i class="fas fa-fire"></i> Sunset</button>
+                                    <button class="dropdown-item theme-option" data-theme="ocean"><i class="fas fa-water"></i> Ocean</button>
+                                    <button class="dropdown-item theme-option" data-theme="forest"><i class="fas fa-leaf"></i> Forest</button>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h4>Language</h4>
+                                <div class="dropdown-list">
+                                    <button class="dropdown-item language-option" data-lang="en"><i class="fas fa-globe"></i> English</button>
+                                    <button class="dropdown-item language-option" data-lang="sr"><i class="fas fa-globe"></i> Serbian</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-menu" id="mobile-menu">☰</div>
+            </nav>
+        </div>
+    </header>
+    <main id="project-detail">
+        <div class="container">
+            <h1 class="project-detail-title">KIAA - Algorithm Course Materials</h1>
+            <div class="project-detail-container">
+
+                <div class="project-description-section">
+                    <h2 class="detail-section-title">Project Overview</h2>
+                    <p>KIAA is a curated set of C++ materials developed to support the university course "Construction and Analysis of Algorithms" (KIAA). The repository includes implementations of both foundational and advanced algorithmic concepts.</p>
+                    <p>The goal was to solidify understanding of complex algorithms and data structures by implementing them from scratch, with clean, readable, and educational code examples.</p>
+                </div>
+
+                <div class="project-features-section">
+                    <h2 class="detail-section-title">Key Features & Highlights</h2>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Implemented advanced data structures: Prefix Trees (Tries), Union-Find, Segment Trees (standard and lazy) and Fenwick Trees.</li>
+                        <li><i class="fas fa-check-circle"></i> Wrote clean and easy to read graph algorithms such as: Tarjan's bridge and articullation point finding algorithm, SCC, Dijkstra, topological sorting, Prime MST, Euler Cycle detecion, Belman-Ford and Floyd-Warshall </li>
+                        <li><i class="fas fa-check-circle"></i> Implemented all the commonly used algebraic algorithms</li>
+                        <li><i class="fas fa-check-circle"></i> Covered advanced string algorithms like KMP, Z-algorithm, and Manacher’s algorithm.</li>
+                        <li><i class="fas fa-check-circle"></i> Included Fast Fourier Transform (FFT) for efficient polynomial multiplication.</li>
+                        <li><i class="fas fa-check-circle"></i> Clean, well-documented code for each topic, ideal for studying or reference.</li>
+                        <li><i class="fas fa-check-circle"></i> GitHub repository organized by algorithm type and use-case.</li>
+                    </ul>
+                </div>
+
+                <div class="project-tech-stack-section">
+                    <h2 class="detail-section-title">Technology Stack</h2>
+                    <div class="tech-tags">
+                        <span class="tech-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" class="tech-icon"> C++</span>
+                        <span class="tech-tag"><i class="fas fa-database"></i> Data Structures</span>
+                        <span class="tech-tag"><i class="fas fa-project-diagram"></i> Algorithms</span>
+                        <span class="tech-tag"><i class="fas fa-wave-square"></i> FFT</span>
+                        <span class="tech-tag"><i class="fas fa-search"></i> KMP / Z-algorithm</span>
+                        <span class="tech-tag"><i class="fas fa-heartbeat"></i> Manacher</span>
+                    </div>
+                </div>
+
+                <div class="project-code-section">
+                    <h2 class="detail-section-title">Explore the Code</h2>
+                    <p>The full repository, including algorithm implementations and code samples, is available on GitHub. Perfect for students preparing for competitive programming or algorithm interviews.</p>
+                    <a href="https://github.com/AleksaVukadinovic/KIAA" class="btn btn-primary project-detail-button" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+
+                <div class="back-link-section">
+                    <a href="index.html#projects" class="btn btn-secondary project-detail-button">
+                        <i class="fas fa-arrow-left"></i> Back to All Projects
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-social-links">
+                <a href="https://github.com/AleksaVukadinovic" class="footer-link" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" class="footer-link" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:alexvukadin8@gmail.com" class="footer-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="copyright">© <span id="current-year">2024</span> Aleksa Vukadinović. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
