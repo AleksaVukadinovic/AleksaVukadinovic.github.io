@@ -47,7 +47,7 @@ function setTheme(theme) {
     body.classList.remove('light-theme', 'dark-theme', 'sunset-theme', 'ocean-theme', 'forest-theme', 'night-theme');    
     body.classList.add(`${theme}-theme`);
     
-    themeToggle.innerHTML = theme === 'dark' || theme === 'night' ? '☀️' : '🌙';
+    themeToggle.innerHTML = theme === 'light' ? '🌙' : '☀️';
     
     localStorage.setItem('theme', theme);
     
