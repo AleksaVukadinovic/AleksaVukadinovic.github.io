@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitEye Project Details | Aleksa Vukadinović</title>
+    <link rel="icon" href="./assets/github-mark-white.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="projectPage.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html#hero" class="logo">Aleksa.dev</a>
+                <div class="nav-links">
+                    <a href="index.html#hero">Home</a>
+                    <a href="index.html#about">About</a>
+                    <a href="index.html#skills">Skills</a>
+                    <a href="index.html#projects">Projects</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+                <div class="header-controls">
+                    <button class="theme-toggle" id="theme-toggle">🌙</button>
+                    <div class="dropdown">
+                        <button class="settings-toggle" id="settings-toggle"><i class="fas fa-cog"></i></button>
+                        <div class="settings-dropdown" id="settings-menu">
+                            <div class="settings-section">
+                                <h4>Theme</h4>
+                                <div class="dropdown-list">
+                                    <button class="dropdown-item theme-option" data-theme="light"><i class="fas fa-sun"></i> Light</button>
+                                    <button class="dropdown-item theme-option" data-theme="dark"><i class="fas fa-moon"></i> Dark</button>
+                                    <button class="dropdown-item theme-option" data-theme="sunset"><i class="fas fa-fire"></i> Sunset</button>
+                                    <button class="dropdown-item theme-option" data-theme="ocean"><i class="fas fa-water"></i> Ocean</button>
+                                    <button class="dropdown-item theme-option" data-theme="forest"><i class="fas fa-leaf"></i> Forest</button>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h4>Language</h4>
+                                <div class="dropdown-list">
+                                    <button class="dropdown-item language-option" data-lang="en"><i class="fas fa-globe"></i> English</button>
+                                    <button class="dropdown-item language-option" data-lang="sr"><i class="fas fa-globe"></i> Serbian</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-menu" id="mobile-menu">☰</div>
+            </nav>
+        </div>
+    </header>
+    <main id="project-detail">
+        <div class="container">
+            <h1 class="project-detail-title">DigitEye - AI Image Recognition</h1>
+            <div class="project-detail-container">
+
+                <div class="project-image-container">
+                    <img src="/api/placeholder/800/400" alt="DigitEye Project Visual" class="project-detail-image">
+                    <p class="image-caption">Conceptual representation or screenshot of DigitEye.</p>
+                </div>
+
+                <div class="project-description-section">
+                    <h2 class="detail-section-title">Project Overview</h2>
+                    <p>DigitEye is an Artificial Intelligence project focused on recognizing handwritten digits. It employs a neural network built from the ground up using Python, leveraging the power of TensorFlow and Keras libraries. The primary goal was to explore fundamental concepts of deep learning and apply them to a classic machine learning problem.</p>
+                    <p>The model was trained on the widely-used MNIST dataset, a large collection of handwritten digits, enabling it to learn the patterns and features necessary for accurate classification.</p>
+                </div>
+
+                <div class="project-features-section">
+                    <h2 class="detail-section-title">Key Features & Achievements</h2>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Developed a functional Neural Network using TensorFlow and Keras.</li>
+                        <li><i class="fas fa-check-circle"></i> Trained on the standard MNIST dataset for handwritten digit recognition.</li>
+                        <li><i class="fas fa-check-circle"></i> Achieved a recognition accuracy of approximately 90% on test data.</li>
+                        <li><i class="fas fa-check-circle"></i> Implemented flexibility allowing users to customize network parameters like the number of hidden layers and training epochs.</li>
+                        <li><i class="fas fa-check-circle"></i> Provides a practical example of building, training, and evaluating a simple deep learning model.</li>
+                    </ul>
+                </div>
+
+                <div class="project-tech-stack-section">
+                    <h2 class="detail-section-title">Technology Stack</h2>
+                    <div class="tech-tags">
+                        <span class="tech-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="tech-icon"> Python</span>
+                        <span class="tech-tag"><img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="TensorFlow Icon" class="tech-icon"> TensorFlow</span>
+                        <span class="tech-tag"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Keras_logo.svg/1200px-Keras_logo.svg.png" alt="Keras Icon" class="tech-icon"> Keras</span>
+                        <span class="tech-tag"><i class="fas fa-brain"></i> AI / Machine Learning</span>
+                        <span class="tech-tag"><i class="fas fa-network-wired"></i> Neural Networks</span>
+                    </div>
+                </div>
+
+                 <div class="project-code-section">
+                    <h2 class="detail-section-title">Explore the Code</h2>
+                    <p>The complete source code, including the model definition, training script, and usage instructions, is available on GitHub. Feel free to explore, fork, or contribute!</p>
+                    <a href="https://github.com/AleksaVukadinovic/DigitEye" class="btn btn-primary project-detail-button" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+
+                <div class="back-link-section">
+                    <a href="index.html#projects" class="btn btn-secondary project-detail-button">
+                        <i class="fas fa-arrow-left"></i> Back to All Projects
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-social-links">
+                <a href="https://github.com/AleksaVukadinovic" class="footer-link" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" class="footer-link" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:alexvukadin8@gmail.com" class="footer-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="copyright">© <span id="current-year">2024</span> Aleksa Vukadinović. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
