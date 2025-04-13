@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starfall Shores Project Details | Aleksa Vukadinović</title>
+    <title>Tornado Projectile Simulation | Aleksa Vukadinović</title>
     <link rel="icon" href="./assets/github-mark-white.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -52,49 +52,47 @@
     </header>
     <main id="project-detail">
         <div class="container">
-            <h1 class="project-detail-title">Starfall Shores - Custom OpenGL Engine</h1>
+            <h1 class="project-detail-title">Tornado Projectile Simulation</h1>
             <div class="project-detail-container">
 
                 <div class="project-image-container">
-                    <img src="assets/ss_day.png" alt="Starfall Shores Visual" class="project-detail-image">
-                    <img src="assets/ss_night.png" alt="Starfall Shores Visual" class="project-detail-image">
-                    <p class="image-caption">Sample render showcasing GPU instancing and bloom effects in Starfall Shores.</p>
+                    <img src="assets/rv.png" alt="Tornado Simulation Visual" class="project-detail-image">
+                    <p class="image-caption">Sample output showing projectiles interacting with a simulated vortex.</p>
                 </div>
 
                 <div class="project-description-section">
                     <h2 class="detail-section-title">Project Overview</h2>
-                    <p>Starfall Shores is a custom-built graphics engine created for a university course on Computer Graphics. This project showcases low-level rendering capabilities using modern OpenGL and GLSL. The engine emphasizes both performance and visual fidelity, making it a solid foundation for real-time 3D rendering experiments and interactive visuals.</p>
-                    <p>Key goals included writing everything from scratch, gaining deeper insight into graphics pipelines, and implementing efficient rendering strategies commonly found in game engines.</p>
+                    <p>This simulation models the motion of projectiles affected by air resistance and a dynamic wind field shaped like a tornado. It was developed as a team project by two students for the course <strong>Introduction to Mechanics</strong> at the Faculty of Mathematics, University of Belgrade.</p>
+                    <p>Projectiles are launched with randomized speeds and angles, and their trajectories are influenced by gravity, air drag, and a swirling vector field representing the tornado. The result is a visually rich 3D plot showcasing the complexity of motion in turbulent environments.</p>
                 </div>
 
                 <div class="project-features-section">
                     <h2 class="detail-section-title">Key Features & Highlights</h2>
                     <ul>
-                        <li><i class="fas fa-check-circle"></i> Designed and built a lightweight graphics engine using modern OpenGL (core profile).</li>
-                        <li><i class="fas fa-check-circle"></i> Utilized GLSL shaders for real-time lighting and shading computations.</li>
-                        <li><i class="fas fa-check-circle"></i> Integrated GPU instancing to render large numbers of objects efficiently.</li>
-                        <li><i class="fas fa-check-circle"></i> Added post-processing effects, including a custom bloom filter for visual polish.</li>
-                        <li><i class="fas fa-check-circle"></i> Modular engine architecture allows for future extension and experimentation.</li>
+                        <li><i class="fas fa-check-circle"></i> Simulates realistic 3D projectile motion with drag and wind forces.</li>
+                        <li><i class="fas fa-check-circle"></i> Custom circular vector field to mimic tornado-like vortex flow.</li>
+                        <li><i class="fas fa-check-circle"></i> Color-coded trajectories and impact points for clear analysis.</li>
+                        <li><i class="fas fa-check-circle"></i> Reference projectile for comparison and visualization consistency.</li>
+                        <li><i class="fas fa-check-circle"></i> Interactive and informative 3D plot using matplotlib.</li>
                     </ul>
                 </div>
 
                 <div class="project-tech-stack-section">
                     <h2 class="detail-section-title">Technology Stack</h2>
                     <div class="tech-tags">
-                        <span class="tech-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" class="tech-icon"> C++</span>
-                        <span class="tech-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opengl/opengl-original.svg" class="tech-icon"> OpenGL</span>
-                        <span class="tech-tag"><i class="fas fa-code"></i> GLSL</span>
-                        <span class="tech-tag"><i class="fas fa-cogs"></i> Custom Engine</span>
-                        <span class="tech-tag"><i class="fas fa-bolt"></i> GPU Instancing</span>
-                        <span class="tech-tag"><i class="fas fa-lightbulb"></i> Bloom Effects</span>
-                        <span class="tech-tag"><i class="fas fa-desktop"></i> Computer Graphics</span>
+                        <span class="tech-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="tech-icon"> Python</span>
+                        <span class="tech-tag"><i class="fas fa-square-root-alt"></i> NumPy</span>
+                        <span class="tech-tag"><i class="fas fa-chart-area"></i> Matplotlib</span>
+                        <span class="tech-tag"><i class="fas fa-wind"></i> Physics Simulation</span>
+                        <span class="tech-tag"><i class="fas fa-cogs"></i> Mechanics</span>
+                        <span class="tech-tag"><i class="fas fa-bullseye"></i> Ballistics</span>
                     </div>
                 </div>
 
                 <div class="project-code-section">
                     <h2 class="detail-section-title">Explore the Code</h2>
-                    <p>The full source code, including engine modules, shaders, and scene setup examples, is available on GitHub. Contributions and feedback are welcome!</p>
-                    <a href="https://github.com/AleksaVukadinovic/Starfall-Shores" class="btn btn-primary project-detail-button" target="_blank">
+                    <p>The complete source code, including physics modeling, vector field logic, and plotting routines, is available on GitHub. Contributions and suggestions are welcome!</p>
+                    <a href="https://github.com/AleksaVukadinovic/tornado-projectile-simulation" class="btn btn-primary project-detail-button" target="_blank">
                         <i class="fab fa-github"></i> View on GitHub
                     </a>
                 </div>
