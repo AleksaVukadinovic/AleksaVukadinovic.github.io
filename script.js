@@ -6,6 +6,7 @@ const languageOptions = document.querySelectorAll('.language-option');
 const body = document.body;
 const mobileMenu = document.getElementById('mobile-menu');
 const navLinks = document.querySelector('.nav-links');
+const yearField = document.getElementById('current-year');
 
 const savedTheme = localStorage.getItem('theme') || 'light';
 setTheme(savedTheme);
@@ -72,3 +73,5 @@ languageOptions.forEach(option => {
         console.log(`Language switched to: ${lang}`);
     });
 })
+
+yearField.textContent = String(new Date().getFullYear());
