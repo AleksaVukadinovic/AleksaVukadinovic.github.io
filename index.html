@@ -1,317 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aleksa Vukadinović | Portfolio</title>
-    <link rel="icon" href="./assets/github-mark-white.svg" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link
+      rel="icon"
+      href="./assets/github-mark-white.svg"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header>
-        <div class="container">
-            <nav>
-                <a href="#hero" class="logo">Aleksa.dev</a>
-                <div class="nav-links">
-                    <a href="#hero">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
+      <div class="container">
+        <nav>
+          <a href="#hero" class="logo">Aleksa.dev</a>
+          <div class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <div class="header-controls">
+            <button class="theme-toggle" id="theme-toggle">🌙</button>
+            <div class="dropdown">
+              <button class="settings-toggle" id="settings-toggle">
+                <i class="fas fa-cog"></i>
+              </button>
+              <div class="settings-dropdown" id="settings-menu">
+                <div class="settings-section">
+                  <h4>Theme</h4>
+                  <div class="dropdown-list">
+                    <button
+                      class="dropdown-item theme-option"
+                      data-theme="light"
+                    >
+                      <i class="fas fa-sun"></i> Light
+                    </button>
+                    <button
+                      class="dropdown-item theme-option"
+                      data-theme="dark"
+                    >
+                      <i class="fas fa-moon"></i> Dark
+                    </button>
+                    <button
+                      class="dropdown-item theme-option"
+                      data-theme="sunset"
+                    >
+                      <i class="fas fa-fire"></i> Sunset
+                    </button>
+                    <button
+                      class="dropdown-item theme-option"
+                      data-theme="ocean"
+                    >
+                      <i class="fas fa-water"></i> Ocean
+                    </button>
+                    <button
+                      class="dropdown-item theme-option"
+                      data-theme="forest"
+                    >
+                      <i class="fas fa-leaf"></i> Forest
+                    </button>
+                    <button
+                      class="dropdown-item theme-option"
+                      data-theme="night"
+                    >
+                      <i class="fa-solid fa-cloud-moon"></i> Night
+                    </button>
+                  </div>
                 </div>
-                <div class="header-controls">
-                    <button class="theme-toggle" id="theme-toggle">🌙</button>
-                    <div class="dropdown">
-                        <button class="settings-toggle" id="settings-toggle"><i class="fas fa-cog"></i></button>
-                        <div class="settings-dropdown" id="settings-menu">
-                            <div class="settings-section">
-                                <h4>Theme</h4>
-                                <div class="dropdown-list">
-                                    <button class="dropdown-item theme-option" data-theme="light"><i class="fas fa-sun"></i> Light</button>
-                                    <button class="dropdown-item theme-option" data-theme="dark"><i class="fas fa-moon"></i> Dark</button>
-                                    <button class="dropdown-item theme-option" data-theme="sunset"><i class="fas fa-fire"></i> Sunset</button>
-                                    <button class="dropdown-item theme-option" data-theme="ocean"><i class="fas fa-water"></i> Ocean</button>
-                                    <button class="dropdown-item theme-option" data-theme="forest"><i class="fas fa-leaf"></i> Forest</button>
-                                    <button class="dropdown-item theme-option" data-theme="night"><i class="fa-solid fa-cloud-moon"></i> Night</button>
-                                </div>
-                            </div>
-                            <div class="settings-section">
-                                <h4>Language</h4>
-                                <div class="dropdown-list">
-                                    <button class="dropdown-item language-option" data-lang="en"><i class="fas fa-globe"></i> English</button>
-                                    <button class="dropdown-item language-option" data-lang="sr"><i class="fas fa-globe"></i> Serbian</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="settings-section">
+                  <h4>Language</h4>
+                  <div class="dropdown-list">
+                    <button
+                      class="dropdown-item language-option"
+                      data-lang="en"
+                    >
+                      <i class="fas fa-globe"></i> English
+                    </button>
+                    <button
+                      class="dropdown-item language-option"
+                      data-lang="sr"
+                    >
+                      <i class="fas fa-globe"></i> Serbian
+                    </button>
+                  </div>
                 </div>
-                <div class="mobile-menu" id="mobile-menu">☰</div>
-            </nav>
-        </div>
+              </div>
+            </div>
+          </div>
+          <div class="mobile-menu" id="mobile-menu">☰</div>
+        </nav>
+      </div>
     </header>
 
     <section id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Aleksa Vukadinović</h1>
-                <h2 class="hero-subtitle">Full-Stack Developer & Computer Science Student</h2>
-                <p>Solving complex problems through code and creative thinking.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                    <a href="#skills" class="btn btn-secondary">See My Skills</a>
-                    <a href="#projects" class="btn btn-secondary">See my projects</a>
-                    <a href="./assets/CV.pdf" class="btn btn-secondary" download="Aleksa_Vukadinovic_CV.pdf" target="_blank"> Download CV
-                    </a>
-                </div>
-            </div>
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">Aleksa Vukadinović</h1>
+          <h2 class="hero-subtitle">
+            Full-Stack Developer & Computer Science Student
+          </h2>
+          <p>Solving complex problems through code and creative thinking.</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">Get in Touch</a>
+            <a href="#skills" class="btn btn-secondary">See My Skills</a>
+            <a href="#projects" class="btn btn-secondary">See my projects</a>
+            <a
+              href="./assets/CV.pdf"
+              class="btn btn-secondary"
+              download="Aleksa_Vukadinovic_CV.pdf"
+              target="_blank"
+            >
+              Download CV
+            </a>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-container">
-                <div class="about-image">
-                    <img src="assets/ja.jpeg" alt="Aleksa Vukadinović">
-                </div>
-                <div class="about-text">
-                    <p>👋 Hi there! I'm Aleksa Vukadinović, a 3rd-year Computer Science student at the <strong>Faculty of Mathematics, University of Belgrade</strong>.</p>
-                    <p>Currently working as a <strong>Full-Stack Developer</strong> with a focus on <strong>backend development</strong>, I enjoy tackling complex problems and building scalable systems that make a difference.</p>
-                    <p>My technical journey spans from low-level programming to modern web development, with a particular passion for exploring the cutting edge of technology.</p>
-                    <h3>I'm passionate about:</h3>
-                    <div class="interests">
-                        <span class="interest-tag"><i class="fas fa-server"></i> Backend Development</span>
-                        <span class="interest-tag"><i class="fas fa-brain"></i> Artificial Intelligence</span>
-                        <span class="interest-tag"><i class="fas fa-palette"></i> Computer Graphics</span>
-                        <span class="interest-tag"><i class="fas fa-code"></i> Compilers & Languages</span>
-                    </div>
-                </div>
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+          <div class="about-image">
+            <img src="assets/ja.jpeg" alt="Aleksa Vukadinović" />
+          </div>
+          <div class="about-text">
+            <p>
+              👋 Hi there! I'm Aleksa Vukadinović, a 3rd-year Computer Science
+              student at the
+              <strong>Faculty of Mathematics, University of Belgrade</strong>.
+            </p>
+            <p>
+              Currently working as a <strong>Full-Stack Developer</strong> with
+              a focus on <strong>backend development</strong>, I enjoy tackling
+              complex problems and building scalable systems that make a
+              difference.
+            </p>
+            <p>
+              My technical journey spans from low-level programming to modern
+              web development, with a particular passion for exploring the
+              cutting edge of technology.
+            </p>
+            <h3>I'm passionate about:</h3>
+            <div class="interests">
+              <span class="interest-tag"
+                ><i class="fas fa-server"></i> Backend Development</span
+              >
+              <span class="interest-tag"
+                ><i class="fas fa-brain"></i> Artificial Intelligence</span
+              >
+              <span class="interest-tag"
+                ><i class="fas fa-palette"></i> Computer Graphics</span
+              >
+              <span class="interest-tag"
+                ><i class="fas fa-code"></i> Compilers & Languages</span
+              >
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="skills">
-        <div class="container">
-            <h2 class="section-title">Tech Stack</h2>
-            <div class="skills-container">
-    
-                <div class="skill-category">
-                    <h3>Programming Languages</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag" data-tooltip="C">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C">
-                        </div>
-                        <div class="skill-tag" data-tooltip="C++">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
-                        </div>
-                        <div class="skill-tag" data-tooltip="Python">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-                        </div>
-                        <div class="skill-tag" data-tooltip="JavaScript">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
-                        </div>
-                        <div class="skill-tag" data-tooltip="TypeScript">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
-                        </div>
-                        <div class="skill-tag" data-tooltip="Java">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
-                        </div>
-                        <div class="skill-tag" data-tooltip="C#">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="skill-category">
-                    <h3>Web & Backend</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag" data-tooltip="React">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
-                        </div>
-                        <div class="skill-tag" data-tooltip="Next.js">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js">
-                        </div>
-                        <div class="skill-tag" data-tooltip="Node.js">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
-                        </div>
-                        <div class="skill-tag" data-tooltip="Fastify">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastify/fastify-original.svg" alt="Fastify">
-                        </div>
-                        <div class="skill-tag" data-tooltip="Docker">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
-                        </div>
-                        <div class="skill-tag" data-tooltip="HTML5">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
-                        </div>
-                        <div class="skill-tag" data-tooltip="CSS3">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="skill-category">
-                    <h3>Databases</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag" data-tooltip="MongoDB">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
-                        </div>
-                        <div class="skill-tag" data-tooltip="SQL">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL">
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="skill-category">
-                    <h3>Tools & Others</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag" data-tooltip="Git">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
-                        </div>
-                        <div class="skill-tag" data-tooltip="GitHub">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
-                        </div>
-                        <div class="skill-tag" data-tooltip="Postman">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" alt="Postman">
-                        </div>
-                        <div class="skill-tag" data-tooltip="OpenGL">
-                            <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opengl/opengl-original.svg" alt="OpenGL">
-                        </div>
-                    </div>
-                </div>
-    
+      <div class="container">
+        <h2 class="section-title">Tech Stack</h2>
+        <div class="skills-container">
+          <div class="skill-category">
+            <h3>Programming Languages</h3>
+            <div class="skill-tags">
+              <div class="skill-tag" data-tooltip="C">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
+                  alt="C"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="C++">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                  alt="C++"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="Python">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                  alt="Python"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="JavaScript">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                  alt="JavaScript"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="TypeScript">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                  alt="TypeScript"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="Java">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                  alt="Java"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="C#">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"
+                  alt="C#"
+                />
+              </div>
             </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Web & Backend</h3>
+            <div class="skill-tags">
+              <div class="skill-tag" data-tooltip="React">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                  alt="React"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="Next.js">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                  alt="Next.js"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="Node.js">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                  alt="Node.js"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="Fastify">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastify/fastify-original.svg"
+                  alt="Fastify"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="Fastify">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg"
+                  alt="Vite"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="Docker">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                  alt="Docker"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="HTML5">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                  alt="HTML5"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="CSS3">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                  alt="CSS3"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Databases</h3>
+            <div class="skill-tags">
+              <div class="skill-tag" data-tooltip="MongoDB">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                  alt="MongoDB"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="SQL">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                  alt="PostgreSQL"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Tools & Others</h3>
+            <div class="skill-tags">
+              <div class="skill-tag" data-tooltip="Git">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                  alt="Git"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="GitHub">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                  alt="GitHub"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="Postman">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
+                  alt="Postman"
+                />
+              </div>
+              <div class="skill-tag" data-tooltip="OpenGL">
+                <img
+                  class="skill-icon"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opengl/opengl-original.svg"
+                  alt="OpenGL"
+                />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="projects">
-        <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div class="projects-container">
-                <div class="project-card">
-                    <h3 class="project-title"><a href="DigitEye.html">DigitEye - AI Image Recognition</a></h3>
-                    <p class="project-description">Developed a neural network in Python using TensorFlow and Keras, trained on the MNIST dataset for recognizing handwritten digits. The model successfully identifies digits with 90% accuracy and supports custom parameters like layer count and epochs.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">TensorFlow</span>
-                        <span class="project-tag">Keras</span>
-                        <span class="project-tag">AI</span>
-                        <span class="project-tag">Neural Network</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/AleksaVukadinovic/DigitEye" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        <!-- <a href="#" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
-                    </div>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title"><a href="StarfallShores.html">Starfall Shores - OpenGL with custom engine</a></h3>
-                    <p class="project-description">Developed a custom graphics engine for a university course project, utilizing OpenGL and GLSL shaders. Implemented advanced rendering techniques such as GPU instancing for efficiency and a bloom post-processing effect for enhanced visuals.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">C++</span>
-                        <span class="project-tag">OpenGL</span>
-                        <span class="project-tag">GLSL</span>
-                        <span class="project-tag">Computer Graphics</span>
-                        <span class="project-tag">Engine</span>
-                        <span class="project-tag">Instancing</span>
-                        <span class="project-tag">Bloom</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/AleksaVukadinovic/Starfall-Shores" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        <!-- Add link to demo video or live demo if available -->
-                    </div>
-                </div>
-                 <div class="project-card">
-                    <h3 class="project-title"><a href="RocketVolley.html">Volley of Rockets - Physics Simulation</a></h3>
-                    <p class="project-description">Collaborated in a team of two to develop a Python simulation modeling the trajectories of projectiles launched into a tornado with varying angles and velocities. This was created as part of the Introduction to Mechanics university course.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">Simulation</span>
-                        <span class="project-tag">Physics</span>
-                        <span class="project-tag">Teamwork</span>
-                        <span class="project-tag">Mechanics</span>
-                        <span class="project-tag">Ballistics</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/AleksaVukadinovic/Volley-of-Rockets" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">AmbroAI - Allergy Prediction Model</h3>
-                    <p class="project-description">Created an AI model based on linear regression in Python during 'The Great Hacka' hackathon. The model predicts the number of potential allergic reactions within a population based on geographic location and size.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">AI</span>
-                        <span class="project-tag">Linear Regression</span>
-                        <span class="project-tag">Hackathon</span>
-                        <span class="project-tag">Data Science</span>
-                    </div>
-                    <!-- <div class="project-links">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-container">
+          <div class="project-card">
+            <h3 class="project-title">
+              <a href="DigitEye.html">DigitEye - AI Image Recognition</a>
+            </h3>
+            <p class="project-description">
+              Developed a neural network in Python using TensorFlow and Keras,
+              trained on the MNIST dataset for recognizing handwritten digits.
+              The model successfully identifies digits with 90% accuracy and
+              supports custom parameters like layer count and epochs.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">TensorFlow</span>
+              <span class="project-tag">Keras</span>
+              <span class="project-tag">AI</span>
+              <span class="project-tag">Neural Network</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/AleksaVukadinovic/DigitEye"
+                class="project-link"
+                target="_blank"
+                ><i class="fab fa-github"></i> GitHub</a
+              >
+              <!-- <a href="#" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
+            </div>
+          </div>
+          <div class="project-card">
+            <h3 class="project-title">
+              <a href="StarfallShores.html"
+                >Starfall Shores - OpenGL with custom engine</a
+              >
+            </h3>
+            <p class="project-description">
+              Developed a custom graphics engine for a university course
+              project, utilizing OpenGL and GLSL shaders. Implemented advanced
+              rendering techniques such as GPU instancing for efficiency and a
+              bloom post-processing effect for enhanced visuals.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">C++</span>
+              <span class="project-tag">OpenGL</span>
+              <span class="project-tag">GLSL</span>
+              <span class="project-tag">Computer Graphics</span>
+              <span class="project-tag">Engine</span>
+              <span class="project-tag">Instancing</span>
+              <span class="project-tag">Bloom</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/AleksaVukadinovic/Starfall-Shores"
+                class="project-link"
+                target="_blank"
+                ><i class="fab fa-github"></i> GitHub</a
+              >
+              <!-- Add link to demo video or live demo if available -->
+            </div>
+          </div>
+          <div class="project-card">
+            <h3 class="project-title">
+              <a href="RocketVolley.html"
+                >Volley of Rockets - Physics Simulation</a
+              >
+            </h3>
+            <p class="project-description">
+              Collaborated in a team of two to develop a Python simulation
+              modeling the trajectories of projectiles launched into a tornado
+              with varying angles and velocities. This was created as part of
+              the Introduction to Mechanics university course.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">Simulation</span>
+              <span class="project-tag">Physics</span>
+              <span class="project-tag">Teamwork</span>
+              <span class="project-tag">Mechanics</span>
+              <span class="project-tag">Ballistics</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/AleksaVukadinovic/Volley-of-Rockets"
+                class="project-link"
+                target="_blank"
+                ><i class="fab fa-github"></i> GitHub</a
+              >
+            </div>
+          </div>
+          <div class="project-card">
+            <h3 class="project-title">AmbroAI - Allergy Prediction Model</h3>
+            <p class="project-description">
+              Created an AI model based on linear regression in Python during
+              'The Great Hacka' hackathon. The model predicts the number of
+              potential allergic reactions within a population based on
+              geographic location and size.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">AI</span>
+              <span class="project-tag">Linear Regression</span>
+              <span class="project-tag">Hackathon</span>
+              <span class="project-tag">Data Science</span>
+            </div>
+            <!-- <div class="project-links">
                         <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                     </div> -->
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title"><a href="KIAA.html"> KIAA - Algorithm Course Materials</a></h3>
-                    <p class="project-description">Developed C++ code materials for the 'Construction and Analysis of Algorithms' course. Implemented advanced data structures like Tries, Segment Trees (including Lazy), Fenwick Trees, and complex algorithms such as FFT, KMP, Z-array, and Manacher.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">C++</span>
-                        <span class="project-tag">Algorithms</span>
-                        <span class="project-tag">Data Structures</span>
-                        <span class="project-tag">FFT</span>
-                        <span class="project-tag">KMP</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/AleksaVukadinovic/KIAA" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
+          </div>
+          <div class="project-card">
+            <h3 class="project-title">
+              <a href="KIAA.html"> KIAA - Algorithm Course Materials</a>
+            </h3>
+            <p class="project-description">
+              Developed C++ code materials for the 'Construction and Analysis of
+              Algorithms' course. Implemented advanced data structures like
+              Tries, Segment Trees (including Lazy), Fenwick Trees, and complex
+              algorithms such as FFT, KMP, Z-array, and Manacher.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">C++</span>
+              <span class="project-tag">Algorithms</span>
+              <span class="project-tag">Data Structures</span>
+              <span class="project-tag">FFT</span>
+              <span class="project-tag">KMP</span>
             </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/AleksaVukadinovic/KIAA"
+                class="project-link"
+                target="_blank"
+                ><i class="fab fa-github"></i> GitHub</a
+              >
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
-
     <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <p>Feel free to reach out! I'm always open to discussing new projects, creative ideas, or opportunities to collaborate.</p>
-                    <div class="contact-methods-wrapper">
-                        <div class="contact-method">
-                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                            <div class="contact-details">
-                                <h4>Email</h4>
-                                <a href="mailto:alexvukadin8@gmail.com">alexvukadin8@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
-                            <div class="contact-details">
-                                <h4>LinkedIn</h4>
-                                <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" target="_blank">Aleksa Vukadinović</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="contact-icon"><i class="fab fa-github"></i></div>
-                            <div class="contact-details">
-                                <h4>GitHub</h4>
-                                <a href="https://github.com/AleksaVukadinovic" target="_blank">AleksaVukadinovic</a>
-                            </div>
-                        </div>
-                    </div>
+      <div class="container">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-container">
+          <div class="contact-info">
+            <p>
+              Feel free to reach out! I'm always open to discussing new
+              projects, creative ideas, or opportunities to collaborate.
+            </p>
+            <div class="contact-methods-wrapper">
+              <div class="contact-method">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <div class="contact-details">
+                  <h4>Email</h4>
+                  <a href="mailto:alexvukadin8@gmail.com"
+                    >alexvukadin8@gmail.com</a
+                  >
                 </div>
+              </div>
+              <div class="contact-method">
+                <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                <div class="contact-details">
+                  <h4>LinkedIn</h4>
+                  <a
+                    href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/"
+                    target="_blank"
+                    >Aleksa Vukadinović</a
+                  >
+                </div>
+              </div>
+              <div class="contact-method">
+                <div class="contact-icon"><i class="fab fa-github"></i></div>
+                <div class="contact-details">
+                  <h4>GitHub</h4>
+                  <a href="https://github.com/AleksaVukadinovic" target="_blank"
+                    >AleksaVukadinovic</a
+                  >
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-social-links">
-                <a href="https://github.com/AleksaVukadinovic" class="footer-link" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" class="footer-link" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:alexvukadin8@gmail.com" class="footer-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p class="copyright">© <span id="current-year">2025</span> Aleksa Vukadinović. All rights reserved.</p>
+      <div class="container">
+        <div class="footer-social-links">
+          <a
+            href="https://github.com/AleksaVukadinovic"
+            class="footer-link"
+            target="_blank"
+            aria-label="GitHub"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/"
+            class="footer-link"
+            target="_blank"
+            aria-label="LinkedIn"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a
+            href="mailto:alexvukadin8@gmail.com"
+            class="footer-link"
+            aria-label="Email"
+            ><i class="fas fa-envelope"></i
+          ></a>
         </div>
+        <p class="copyright">
+          © <span id="current-year">2025</span> Aleksa Vukadinović. All rights
+          reserved.
+        </p>
+      </div>
     </footer>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
