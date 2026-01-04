@@ -1,574 +1,1038 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aleksa Vukadinović | Portfolio</title>
-    <link
-      rel="icon"
-      href="./assets/github-mark-white.svg"
-      type="image/x-icon"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <nav>
-          <a href="#hero" class="logo">Aleksa.dev</a>
-          <div class="nav-links">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Aleksa Vukadinović | Data Engineer & Developer</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --primary: #8b5cf6;
+                --secondary: #a78bfa;
+                --accent: #c084fc;
+                --dark: #0a0a0f;
+                --darker: #050508;
+                --glass: rgba(139, 92, 246, 0.05);
+                --glass-border: rgba(139, 92, 246, 0.2);
+                --text: #e0e0e0;
+                --text-dim: #a0a0a0;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Oxygen, Ubuntu, Cantarell, sans-serif;
+                background: var(--darker);
+                color: var(--text);
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+
+            /* Animated Space Background */
+            #stars-canvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+
+            /* Glass Effect Components */
+            .glass {
+                background: var(--glass);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 1px solid var(--glass-border);
+                border-radius: 16px;
+            }
+
+            /* Navigation */
+            nav {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+                padding: 12px 24px;
+                display: flex;
+                gap: 8px;
+                max-width: 90%;
+            }
+
+            nav a {
+                color: var(--text);
+                text-decoration: none;
+                padding: 8px 20px;
+                border-radius: 12px;
+                transition: all 0.3s ease;
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            nav a:hover {
+                background: var(--glass);
+                color: var(--primary);
+                transform: translateY(-2px);
+            }
+
+            /* Container */
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            /* Hero Section */
+            #hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 100px 20px;
+            }
+
+            .hero-content h1 {
+                font-size: clamp(3rem, 8vw, 5rem);
+                font-weight: 700;
+                margin-bottom: 16px;
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--accent)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .hero-content h2 {
+                font-size: clamp(1.2rem, 3vw, 1.8rem);
+                color: var(--text-dim);
+                font-weight: 400;
+                margin-bottom: 32px;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+                color: var(--text-dim);
+                margin-bottom: 48px;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* Buttons */
+            .btn-group {
+                display: flex;
+                gap: 16px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                padding: 14px 32px;
+                border-radius: 12px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                display: inline-block;
+                border: none;
+                cursor: pointer;
+                font-size: 15px;
+            }
+
+            .btn-primary {
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--accent)
+                );
+                color: white;
+            }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+            }
+
+            .btn-secondary {
+                background: var(--glass);
+                color: var(--text);
+                border: 1px solid var(--glass-border);
+            }
+
+            .btn-secondary:hover {
+                background: rgba(139, 92, 246, 0.1);
+                transform: translateY(-2px);
+            }
+
+            /* Section Styles */
+            section {
+                padding: 100px 20px;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: clamp(2.5rem, 5vw, 3.5rem);
+                margin-bottom: 60px;
+                text-align: center;
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--accent)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            /* About Section */
+            .about-grid {
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                gap: 60px;
+                align-items: center;
+            }
+
+            .profile-card {
+                padding: 40px;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 250px;
+                height: 250px;
+                border-radius: 50%;
+                margin: 0 auto 24px;
+                border: 3px solid var(--primary);
+                overflow: hidden;
+                box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+            }
+
+            .profile-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .about-text p {
+                margin-bottom: 24px;
+                font-size: 1.05rem;
+                line-height: 1.8;
+            }
+
+            .about-text strong {
+                color: var(--primary);
+            }
+
+            .interests {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-top: 24px;
+            }
+
+            .interest-tag {
+                padding: 10px 20px;
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 24px;
+                font-size: 14px;
+                transition: all 0.3s ease;
+            }
+
+            .interest-tag:hover {
+                background: rgba(139, 92, 246, 0.15);
+                transform: translateY(-2px);
+            }
+
+            .interest-tag i {
+                margin-right: 8px;
+                color: var(--primary);
+            }
+
+            /* Skills Section */
+            .skills-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 24px;
+            }
+
+            .skill-card {
+                padding: 32px;
+                transition: all 0.3s ease;
+            }
+
+            .skill-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+            }
+
+            .skill-card h3 {
+                color: var(--primary);
+                margin-bottom: 24px;
+                font-size: 1.3rem;
+            }
+
+            .skill-icons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .skill-icon {
+                width: 48px;
+                height: 48px;
+                padding: 8px;
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .skill-icon:hover {
+                transform: scale(1.15) rotate(5deg);
+                box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+            }
+
+            .skill-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            /* Projects Section */
+            .projects-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 32px;
+            }
+
+            .project-card {
+                padding: 32px;
+                transition: all 0.3s ease;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .project-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 40px rgba(139, 92, 246, 0.25);
+            }
+
+            .project-card h3 {
+                color: var(--primary);
+                margin-bottom: 16px;
+                font-size: 1.4rem;
+            }
+
+            .project-card h3 a {
+                color: var(--primary);
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .project-card h3 a:hover {
+                color: var(--accent);
+            }
+
+            .project-description {
+                color: var(--text-dim);
+                margin-bottom: 20px;
+                flex-grow: 1;
+                line-height: 1.7;
+            }
+
+            .project-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+
+            .project-tag {
+                padding: 6px 14px;
+                background: rgba(139, 92, 246, 0.15);
+                border: 1px solid var(--glass-border);
+                border-radius: 16px;
+                font-size: 12px;
+                color: var(--accent);
+            }
+
+            .project-links {
+                display: flex;
+                gap: 12px;
+            }
+
+            .project-link {
+                color: var(--primary);
+                text-decoration: none;
+                font-size: 14px;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .project-link:hover {
+                color: var(--accent);
+                transform: translateX(4px);
+            }
+
+            /* Contact Section */
+            .contact-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 32px;
+                margin-top: 40px;
+            }
+
+            .contact-card {
+                padding: 32px;
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+
+            .contact-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+            }
+
+            .contact-icon {
+                width: 64px;
+                height: 64px;
+                margin: 0 auto 20px;
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--accent)
+                );
+                border-radius: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 28px;
+                color: white;
+            }
+
+            .contact-card h3 {
+                color: var(--primary);
+                margin-bottom: 12px;
+            }
+
+            .contact-card a {
+                color: var(--text-dim);
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .contact-card a:hover {
+                color: var(--primary);
+            }
+
+            /* Footer */
+            footer {
+                padding: 40px 20px;
+                text-align: center;
+                border-top: 1px solid var(--glass-border);
+            }
+
+            .social-links {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
+            .social-link {
+                width: 48px;
+                height: 48px;
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--text);
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+
+            .social-link:hover {
+                background: var(--primary);
+                color: white;
+                transform: translateY(-4px);
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                nav {
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+
+                .about-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .projects-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .skills-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="stars-canvas"></canvas>
+
+        <nav class="glass">
             <a href="#hero">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
-          </div>
-          <div class="header-controls">
-            <button class="theme-toggle" id="theme-toggle">🌙</button>
-            <div class="dropdown">
-              <button class="settings-toggle" id="settings-toggle">
-                <i class="fas fa-cog"></i>
-              </button>
-              <div class="settings-dropdown" id="settings-menu">
-                <div class="settings-section">
-                  <h4>Theme</h4>
-                  <div class="dropdown-list">
-                    <button
-                      class="dropdown-item theme-option"
-                      data-theme="light"
-                    >
-                      <i class="fas fa-sun"></i> Light
-                    </button>
-                    <button
-                      class="dropdown-item theme-option"
-                      data-theme="dark"
-                    >
-                      <i class="fas fa-moon"></i> Dark
-                    </button>
-                    <button
-                      class="dropdown-item theme-option"
-                      data-theme="sunset"
-                    >
-                      <i class="fas fa-fire"></i> Sunset
-                    </button>
-                    <button
-                      class="dropdown-item theme-option"
-                      data-theme="ocean"
-                    >
-                      <i class="fas fa-water"></i> Ocean
-                    </button>
-                    <button
-                      class="dropdown-item theme-option"
-                      data-theme="forest"
-                    >
-                      <i class="fas fa-leaf"></i> Forest
-                    </button>
-                    <button
-                      class="dropdown-item theme-option"
-                      data-theme="night"
-                    >
-                      <i class="fa-solid fa-cloud-moon"></i> Night
-                    </button>
-                  </div>
-                </div>
-                <div class="settings-section">
-                  <h4>Language</h4>
-                  <div class="dropdown-list">
-                    <button
-                      class="dropdown-item language-option"
-                      data-lang="en"
-                    >
-                      <i class="fas fa-globe"></i> English
-                    </button>
-                    <button
-                      class="dropdown-item language-option"
-                      data-lang="sr"
-                    >
-                      <i class="fas fa-globe"></i> Serbian
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mobile-menu" id="mobile-menu">☰</div>
         </nav>
-      </div>
-    </header>
 
-    <section id="hero">
-      <div class="container">
-        <div class="hero-content">
-          <h1 class="hero-title">Aleksa Vukadinović</h1>
-          <h2 class="hero-subtitle">
-            Full-Stack Developer & Computer Science Student
-          </h2>
-          <p>Solving complex problems through code and creative thinking.</p>
-          <div class="hero-buttons">
-            <a href="#contact" class="btn btn-primary">Get in Touch</a>
-            <a href="#skills" class="btn btn-secondary">See My Skills</a>
-            <a href="#projects" class="btn btn-secondary">See my projects</a>
-            <a
-              href="./assets/CV.pdf"
-              class="btn btn-secondary"
-              download="Aleksa_Vukadinovic_CV.pdf"
-              target="_blank"
-            >
-              Download CV
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-container">
-          <div class="about-image">
-            <img src="assets/ja.jpeg" alt="Aleksa Vukadinović" />
-          </div>
-          <div class="about-text">
-            <p>
-              👋 Hi there! I'm Aleksa Vukadinović, a 3rd-year Computer Science
-              student at the
-              <strong>Faculty of Mathematics, University of Belgrade</strong>.
-            </p>
-            <p>
-              Currently working as a <strong>Full-Stack Developer</strong> with
-              a focus on <strong>backend development</strong>, I enjoy tackling
-              complex problems and building scalable systems that make a
-              difference.
-            </p>
-            <p>
-              My technical journey spans from low-level programming to modern
-              web development, with a particular passion for exploring the
-              cutting edge of technology.
-            </p>
-            <h3>I'm passionate about:</h3>
-            <div class="interests">
-              <span class="interest-tag"
-                ><i class="fas fa-server"></i> Backend Development</span
-              >
-              <span class="interest-tag"
-                ><i class="fas fa-brain"></i> Artificial Intelligence</span
-              >
-              <span class="interest-tag"
-                ><i class="fas fa-palette"></i> Computer Graphics</span
-              >
-              <span class="interest-tag"
-                ><i class="fas fa-code"></i> Compilers & Languages</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills">
-      <div class="container">
-        <h2 class="section-title">Tech Stack</h2>
-        <div class="skills-container">
-          <div class="skill-category">
-            <h3>Programming Languages</h3>
-            <div class="skill-tags">
-              <div class="skill-tag" data-tooltip="C">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
-                  alt="C"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="C++">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
-                  alt="C++"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Python">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                  alt="Python"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="JavaScript">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-                  alt="JavaScript"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="TypeScript">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-                  alt="TypeScript"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Java">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-                  alt="Java"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="C#">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"
-                  alt="C#"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Haskell">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haskell/haskell-original.svg"
-                  alt="Haskell"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>Web & Backend</h3>
-            <div class="skill-tags">
-              <div class="skill-tag" data-tooltip="React">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                  alt="React"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Next.js">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
-                  alt="Next.js"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Node.js">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-                  alt="Node.js"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Fastify">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastify/fastify-original.svg"
-                  alt="Fastify"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Vite">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg"
-                  alt="Vite"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Docker">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
-                  alt="Docker"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="HTML5">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-                  alt="HTML5"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="CSS3">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
-                  alt="CSS3"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>Databases</h3>
-            <div class="skill-tags">
-              <div class="skill-tag" data-tooltip="MongoDB">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
-                  alt="MongoDB"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="SQL">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
-                  alt="PostgreSQL"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>Tools & Others</h3>
-            <div class="skill-tags">
-              <div class="skill-tag" data-tooltip="Git">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-                  alt="Git"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="GitHub">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
-                  alt="GitHub"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="Postman">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
-                  alt="Postman"
-                />
-              </div>
-              <div class="skill-tag" data-tooltip="OpenGL">
-                <img
-                  class="skill-icon"
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opengl/opengl-original.svg"
-                  alt="OpenGL"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="container">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-container">
-          <div class="project-card">
-            <h3 class="project-title">
-              <a href="DigitEye.html">DigitEye - AI Image Recognition</a>
-            </h3>
-            <p class="project-description">
-              Developed a neural network in Python using TensorFlow and Keras,
-              trained on the MNIST dataset for recognizing handwritten digits.
-              The model successfully identifies digits with 90% accuracy and
-              supports custom parameters like layer count and epochs.
-            </p>
-            <div class="project-tags">
-              <span class="project-tag">Python</span>
-              <span class="project-tag">TensorFlow</span>
-              <span class="project-tag">Keras</span>
-              <span class="project-tag">AI</span>
-              <span class="project-tag">Neural Network</span>
-            </div>
-            <div class="project-links">
-              <a
-                href="https://github.com/AleksaVukadinovic/DigitEye"
-                class="project-link"
-                target="_blank"
-                ><i class="fab fa-github"></i> GitHub</a
-              >
-              <!-- <a href="#" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
-            </div>
-          </div>
-          <div class="project-card">
-            <h3 class="project-title">
-              <a href="StarfallShores.html"
-                >Starfall Shores - OpenGL with custom engine</a
-              >
-            </h3>
-            <p class="project-description">
-              Developed a custom graphics engine for a university course
-              project, utilizing OpenGL and GLSL shaders. Implemented advanced
-              rendering techniques such as GPU instancing for efficiency and a
-              bloom post-processing effect for enhanced visuals.
-            </p>
-            <div class="project-tags">
-              <span class="project-tag">C++</span>
-              <span class="project-tag">OpenGL</span>
-              <span class="project-tag">GLSL</span>
-              <span class="project-tag">Computer Graphics</span>
-              <span class="project-tag">Engine</span>
-              <span class="project-tag">Instancing</span>
-              <span class="project-tag">Bloom</span>
-            </div>
-            <div class="project-links">
-              <a
-                href="https://github.com/AleksaVukadinovic/Starfall-Shores"
-                class="project-link"
-                target="_blank"
-                ><i class="fab fa-github"></i> GitHub</a
-              >
-              <!-- Add link to demo video or live demo if available -->
-            </div>
-          </div>
-          <div class="project-card">
-            <h3 class="project-title">
-              <a href="RocketVolley.html"
-                >Volley of Rockets - Physics Simulation</a
-              >
-            </h3>
-            <p class="project-description">
-              Collaborated in a team of two to develop a Python simulation
-              modeling the trajectories of projectiles launched into a tornado
-              with varying angles and velocities. This was created as part of
-              the Introduction to Mechanics university course.
-            </p>
-            <div class="project-tags">
-              <span class="project-tag">Python</span>
-              <span class="project-tag">Simulation</span>
-              <span class="project-tag">Physics</span>
-              <span class="project-tag">Teamwork</span>
-              <span class="project-tag">Mechanics</span>
-              <span class="project-tag">Ballistics</span>
-            </div>
-            <div class="project-links">
-              <a
-                href="https://github.com/AleksaVukadinovic/Volley-of-Rockets"
-                class="project-link"
-                target="_blank"
-                ><i class="fab fa-github"></i> GitHub</a
-              >
-            </div>
-          </div>
-          <div class="project-card">
-            <h3 class="project-title">AmbroAI - Allergy Prediction Model</h3>
-            <p class="project-description">
-              Created an AI model based on linear regression in Python during
-              'The Great Hacka' hackathon. The model predicts the number of
-              potential allergic reactions within a population based on
-              geographic location and size.
-            </p>
-            <div class="project-tags">
-              <span class="project-tag">Python</span>
-              <span class="project-tag">AI</span>
-              <span class="project-tag">Linear Regression</span>
-              <span class="project-tag">Hackathon</span>
-              <span class="project-tag">Data Science</span>
-            </div>
-            <!-- <div class="project-links">
-                        <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    </div> -->
-          </div>
-          <div class="project-card">
-            <h3 class="project-title">
-              <a href="KIAA.html"> KIAA - Algorithm Course Materials</a>
-            </h3>
-            <p class="project-description">
-              Developed C++ code materials for the 'Construction and Analysis of
-              Algorithms' course. Implemented advanced data structures like
-              Tries, Segment Trees (including Lazy), Fenwick Trees, and complex
-              algorithms such as FFT, KMP, Z-array, and Manacher.
-            </p>
-            <div class="project-tags">
-              <span class="project-tag">C++</span>
-              <span class="project-tag">Algorithms</span>
-              <span class="project-tag">Data Structures</span>
-              <span class="project-tag">FFT</span>
-              <span class="project-tag">KMP</span>
-            </div>
-            <div class="project-links">
-              <a
-                href="https://github.com/AleksaVukadinovic/KIAA"
-                class="project-link"
-                target="_blank"
-                ><i class="fab fa-github"></i> GitHub</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title">Get in Touch</h2>
-        <div class="contact-container">
-          <div class="contact-info">
-            <p>
-              Feel free to reach out! I'm always open to discussing new
-              projects, creative ideas, or opportunities to collaborate.
-            </p>
-            <div class="contact-methods-wrapper">
-              <div class="contact-method">
-                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                <div class="contact-details">
-                  <h4>Email</h4>
-                  <a href="mailto:alexvukadin8@gmail.com"
-                    >alexvukadin8@gmail.com</a
-                  >
+        <section id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Aleksa Vukadinović</h1>
+                    <h2>Data Engineer & Computer Science Student</h2>
+                    <p>
+                        Building scalable data systems and solving complex
+                        problems through innovative engineering
+                    </p>
+                    <div class="btn-group">
+                        <a href="#contact" class="btn btn-primary"
+                            >Get in Touch</a
+                        >
+                        <a href="#projects" class="btn btn-secondary"
+                            >View Projects</a
+                        >
+                        <a
+                            href="./assets/CV.pdf"
+                            class="btn btn-secondary"
+                            download="Aleksa_Vukadinovic_CV.pdf"
+                            >Download CV</a
+                        >
+                    </div>
                 </div>
-              </div>
-              <div class="contact-method">
-                <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
-                <div class="contact-details">
-                  <h4>LinkedIn</h4>
-                  <a
-                    href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/"
-                    target="_blank"
-                    >Aleksa Vukadinović</a
-                  >
-                </div>
-              </div>
-              <div class="contact-method">
-                <div class="contact-icon"><i class="fab fa-github"></i></div>
-                <div class="contact-details">
-                  <h4>GitHub</h4>
-                  <a href="https://github.com/AleksaVukadinovic" target="_blank"
-                    >AleksaVukadinovic</a
-                  >
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <footer>
-      <div class="container">
-        <div class="footer-social-links">
-          <a
-            href="https://github.com/AleksaVukadinovic"
-            class="footer-link"
-            target="_blank"
-            aria-label="GitHub"
-            ><i class="fab fa-github"></i
-          ></a>
-          <a
-            href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/"
-            class="footer-link"
-            target="_blank"
-            aria-label="LinkedIn"
-            ><i class="fab fa-linkedin"></i
-          ></a>
-          <a
-            href="mailto:alexvukadin8@gmail.com"
-            class="footer-link"
-            aria-label="Email"
-            ><i class="fas fa-envelope"></i
-          ></a>
-        </div>
-        <p class="copyright">
-          © <span id="current-year">2025</span> Aleksa Vukadinović. All rights
-          reserved.
-        </p>
-      </div>
-    </footer>
-    <script src="script.js"></script>
-  </body>
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-grid">
+                    <div class="profile-card glass">
+                        <div class="profile-image">
+                            <img
+                                src="assets/ja.jpeg"
+                                alt="Aleksa Vukadinović"
+                            />
+                        </div>
+                    </div>
+                    <div class="about-text">
+                        <p>
+                            👋 Hi there! I'm Aleksa Vukadinović, a 3rd-year
+                            Computer Science student at the
+                            <strong
+                                >Faculty of Mathematics, University of
+                                Belgrade</strong
+                            >.
+                        </p>
+                        <p>
+                            Currently working as a
+                            <strong>Data Engineer at Nordeus</strong>, I
+                            specialize in building scalable data pipelines and
+                            systems that power data-driven decision making. I'm
+                            passionate about tackling complex engineering
+                            challenges and creating robust solutions that make a
+                            real impact.
+                        </p>
+                        <p>
+                            My technical journey spans from low-level
+                            programming to modern data engineering, with a keen
+                            interest in exploring cutting-edge technologies
+                            across AI, computer graphics, and distributed
+                            systems.
+                        </p>
+                        <h3
+                            style="
+                                color: var(--primary);
+                                margin-top: 32px;
+                                margin-bottom: 16px;
+                            "
+                        >
+                            Passionate About
+                        </h3>
+                        <div class="interests">
+                            <span class="interest-tag"
+                                ><i class="fas fa-database"></i> Data
+                                Engineering</span
+                            >
+                            <span class="interest-tag"
+                                ><i class="fas fa-brain"></i> Artificial
+                                Intelligence</span
+                            >
+                            <span class="interest-tag"
+                                ><i class="fas fa-palette"></i> Computer
+                                Graphics</span
+                            >
+                            <span class="interest-tag"
+                                ><i class="fas fa-code"></i> Compilers &
+                                Languages</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <h2 class="section-title">Tech Stack</h2>
+                <div class="skills-grid">
+                    <div class="skill-card glass">
+                        <h3>Programming Languages</h3>
+                        <div class="skill-icons">
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
+                                    alt="C"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                                    alt="C++"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                                    alt="Python"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                                    alt="JavaScript"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                                    alt="TypeScript"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                                    alt="Java"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"
+                                    alt="C#"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haskell/haskell-original.svg"
+                                    alt="Haskell"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-card glass">
+                        <h3>Web & Backend</h3>
+                        <div class="skill-icons">
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                                    alt="React"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                                    alt="Next.js"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                                    alt="Node.js"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastify/fastify-original.svg"
+                                    alt="Fastify"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg"
+                                    alt="Vite"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                                    alt="Docker"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-card glass">
+                        <h3>Databases</h3>
+                        <div class="skill-icons">
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                                    alt="MongoDB"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                                    alt="PostgreSQL"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-card glass">
+                        <h3>Tools & Others</h3>
+                        <div class="skill-icons">
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                                    alt="Git"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                                    alt="GitHub"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
+                                    alt="Postman"
+                                />
+                            </div>
+                            <div class="skill-icon">
+                                <img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opengl/opengl-original.svg"
+                                    alt="OpenGL"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card glass">
+                        <h3>
+                            <a href="DigitEye.html"
+                                >DigitEye - AI Image Recognition</a
+                            >
+                        </h3>
+                        <p class="project-description">
+                            Developed a neural network using TensorFlow and
+                            Keras, trained on the MNIST dataset for recognizing
+                            handwritten digits with 90% accuracy. Supports
+                            custom parameters like layer count and epochs.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">TensorFlow</span>
+                            <span class="project-tag">Keras</span>
+                            <span class="project-tag">AI</span>
+                        </div>
+                        <div class="project-links">
+                            <a
+                                href="https://github.com/AleksaVukadinovic/DigitEye"
+                                class="project-link"
+                                target="_blank"
+                                ><i class="fab fa-github"></i> GitHub</a
+                            >
+                        </div>
+                    </div>
+
+                    <div class="project-card glass">
+                        <h3>
+                            <a href="StarfallShores.html"
+                                >Starfall Shores - OpenGL Engine</a
+                            >
+                        </h3>
+                        <p class="project-description">
+                            Custom graphics engine utilizing OpenGL and GLSL
+                            shaders. Implemented GPU instancing for efficiency
+                            and bloom post-processing effects for enhanced
+                            visuals.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">C++</span>
+                            <span class="project-tag">OpenGL</span>
+                            <span class="project-tag">GLSL</span>
+                            <span class="project-tag">Graphics</span>
+                        </div>
+                        <div class="project-links">
+                            <a
+                                href="https://github.com/AleksaVukadinovic/Starfall-Shores"
+                                class="project-link"
+                                target="_blank"
+                                ><i class="fab fa-github"></i> GitHub</a
+                            >
+                        </div>
+                    </div>
+
+                    <div class="project-card glass">
+                        <h3>
+                            <a href="RocketVolley.html"
+                                >Volley of Rockets - Physics Simulation</a
+                            >
+                        </h3>
+                        <p class="project-description">
+                            Python simulation modeling projectile trajectories
+                            launched into a tornado with varying angles and
+                            velocities. Created for Introduction to Mechanics
+                            course.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Simulation</span>
+                            <span class="project-tag">Physics</span>
+                        </div>
+                        <div class="project-links">
+                            <a
+                                href="https://github.com/AleksaVukadinovic/Volley-of-Rockets"
+                                class="project-link"
+                                target="_blank"
+                                ><i class="fab fa-github"></i> GitHub</a
+                            >
+                        </div>
+                    </div>
+
+                    <div class="project-card glass">
+                        <h3>AmbroAI - Allergy Prediction</h3>
+                        <p class="project-description">
+                            AI model based on linear regression predicting
+                            allergic reactions within populations based on
+                            geographic location and size. Developed during 'The
+                            Great Hacka' hackathon.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">AI</span>
+                            <span class="project-tag">Regression</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card glass">
+                        <h3>
+                            <a href="KIAA.html"
+                                >KIAA - Algorithm Course Materials</a
+                            >
+                        </h3>
+                        <p class="project-description">
+                            C++ code materials implementing advanced data
+                            structures like Tries, Segment Trees, Fenwick Trees,
+                            and algorithms such as FFT, KMP, Z-array, and
+                            Manacher.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">C++</span>
+                            <span class="project-tag">Algorithms</span>
+                            <span class="project-tag">Data Structures</span>
+                        </div>
+                        <div class="project-links">
+                            <a
+                                href="https://github.com/AleksaVukadinovic/KIAA"
+                                class="project-link"
+                                target="_blank"
+                                ><i class="fab fa-github"></i> GitHub</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">Get in Touch</h2>
+                <p
+                    style="
+                        text-align: center;
+                        color: var(--text-dim);
+                        margin-bottom: 40px;
+                        font-size: 1.1rem;
+                    "
+                >
+                    I'm always open to discussing new projects, creative ideas,
+                    or opportunities to collaborate
+                </p>
+                <div class="contact-grid">
+                    <div class="contact-card glass">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <a href="mailto:alexvukadin8@gmail.com"
+                            >alexvukadin8@gmail.com</a
+                        >
+                    </div>
+                    <div class="contact-card glass">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <h3>LinkedIn</h3>
+                        <a
+                            href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/"
+                            target="_blank"
+                            >Aleksa Vukadinović</a
+                        >
+                    </div>
+                    <div class="contact-card glass">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3>GitHub</h3>
+                        <a
+                            href="https://github.com/AleksaVukadinovic"
+                            target="_blank"
+                            >AleksaVukadinovic</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <div class="social-links">
+                    <a
+                        href="https://github.com/AleksaVukadinovic"
+                        class="social-link"
+                        target="_blank"
+                        ><i class="fab fa-github"></i
+                    ></a>
+                    <a
+                        href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/"
+                        class="social-link"
+                        target="_blank"
+                        ><i class="fab fa-linkedin"></i
+                    ></a>
+                    <a href="mailto:alexvukadin8@gmail.com" class="social-link"
+                        ><i class="fas fa-envelope"></i
+                    ></a>
+                </div>
+                <p style="color: var(--text-dim)">
+                    © <span id="year"></span> Aleksa Vukadinović. All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+        <script>
+            // Animated stars background
+            const canvas = document.getElementById("stars-canvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const stars = [];
+            const starCount = 200;
+
+            for (let i = 0; i < starCount; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    opacity: Math.random(),
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                stars.forEach((star) => {
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(139, 92, 246, ${star.opacity})`;
+                    ctx.fill();
+
+                    star.x += star.vx;
+                    star.y += star.vy;
+
+                    if (star.x < 0 || star.x > canvas.width) star.vx *= -1;
+                    if (star.y < 0 || star.y > canvas.height) star.vy *= -1;
+
+                    star.opacity += (Math.random() - 0.5) * 0.02;
+                    star.opacity = Math.max(0.2, Math.min(1, star.opacity));
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            window.addEventListener("resize", () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            document.getElementById("year").textContent = new Date().getFullYear();
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(
+                        this.getAttribute("href"),
+                    );
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
 </html>
