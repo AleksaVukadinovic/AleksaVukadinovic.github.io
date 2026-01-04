@@ -1,119 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIAA - Algorithm Course Materials | Aleksa Vukadinović</title>
-    <link rel="icon" href="./assets/github-mark-white.svg" type="image/x-icon" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="projectPage.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #a78bfa;
+            --accent: #c084fc;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --glass: rgba(139, 92, 246, 0.05);
+            --glass-border: rgba(139, 92, 246, 0.2);
+            --text: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        #stars-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            padding: 12px 24px;
+            display: flex;
+            gap: 8px;
+            max-width: 90%;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: var(--glass);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 32px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+            color: var(--accent);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            padding: 8px 16px;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--accent);
+        }
+
+        .content-section {
+            padding: 40px;
+            margin-bottom: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 24px;
+        }
+
+        p {
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        ul li {
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            padding-left: 32px;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        ul li i {
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tech-tag {
+            padding: 10px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(139, 92, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .tech-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            margin-right: 12px;
+            margin-top: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            color: var(--text);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 80px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <a href="index.html#hero" class="logo">Aleksa.dev</a>
-                <div class="nav-links">
-                    <a href="index.html#hero">Home</a>
-                    <a href="index.html#about">About</a>
-                    <a href="index.html#skills">Skills</a>
-                    <a href="index.html#projects">Projects</a>
-                    <a href="index.html#contact">Contact</a>
-                </div>
-                <div class="header-controls">
-                    <button class="theme-toggle" id="theme-toggle">🌙</button>
-                    <div class="dropdown">
-                        <button class="settings-toggle" id="settings-toggle"><i class="fas fa-cog"></i></button>
-                        <div class="settings-dropdown" id="settings-menu">
-                            <div class="settings-section">
-                                <h4>Theme</h4>
-                                <div class="dropdown-list">
-                                    <button class="dropdown-item theme-option" data-theme="light"><i class="fas fa-sun"></i> Light</button>
-                                    <button class="dropdown-item theme-option" data-theme="dark"><i class="fas fa-moon"></i> Dark</button>
-                                    <button class="dropdown-item theme-option" data-theme="sunset"><i class="fas fa-fire"></i> Sunset</button>
-                                    <button class="dropdown-item theme-option" data-theme="ocean"><i class="fas fa-water"></i> Ocean</button>
-                                    <button class="dropdown-item theme-option" data-theme="forest"><i class="fas fa-leaf"></i> Forest</button>
-                                    <button class="dropdown-item theme-option" data-theme="night"><i class="fa-solid fa-cloud-moon"></i> Night</button>
-                                </div>
-                            </div>
-                            <div class="settings-section">
-                                <h4>Language</h4>
-                                <div class="dropdown-list">
-                                    <button class="dropdown-item language-option" data-lang="en"><i class="fas fa-globe"></i> English</button>
-                                    <button class="dropdown-item language-option" data-lang="sr"><i class="fas fa-globe"></i> Serbian</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mobile-menu" id="mobile-menu">☰</div>
-            </nav>
+    <canvas id="stars-canvas"></canvas>
+
+    <nav class="glass">
+        <a href="index.html#hero">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <a href="index.html#projects" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Projects
+        </a>
+
+        <h1>KIAA - Algorithm Course Materials</h1>
+
+        <div class="project-meta">
+            <span class="meta-tag">C++</span>
+            <span class="meta-tag">Algorithms</span>
+            <span class="meta-tag">Data Structures</span>
+            <span class="meta-tag">Educational</span>
         </div>
-    </header>
-    <main id="project-detail">
-        <div class="container">
-            <h1 class="project-detail-title">KIAA - Algorithm Course Materials</h1>
-            <div class="project-detail-container">
 
-                <div class="project-description-section">
-                    <h2 class="detail-section-title">Project Overview</h2>
-                    <p>KIAA is a curated set of C++ materials developed to support the university course "Construction and Analysis of Algorithms" (KIAA). The repository includes implementations of both foundational and advanced algorithmic concepts.</p>
-                    <p>The goal was to solidify understanding of complex algorithms and data structures by implementing them from scratch, with clean, readable, and educational code examples.</p>
-                </div>
+        <div class="content-section glass">
+            <h2>Project Overview</h2>
+            <p>KIAA is a curated set of C++ materials developed to support the university course "Construction and Analysis of Algorithms" (KIAA). The repository includes implementations of both foundational and advanced algorithmic concepts.</p>
+            <p>The goal was to solidify understanding of complex algorithms and data structures by implementing them from scratch, with clean, readable, and educational code examples.</p>
+        </div>
 
-                <div class="project-features-section">
-                    <h2 class="detail-section-title">Key Features & Highlights</h2>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Implemented advanced data structures: Prefix Trees (Tries), Union-Find, Segment Trees (standard and lazy) and Fenwick Trees.</li>
-                        <li><i class="fas fa-check-circle"></i> Wrote clean and easy to read graph algorithms such as: Tarjan's bridge and articullation point finding algorithm, SCC, Dijkstra, topological sorting, Prime MST, Euler Cycle detecion, Belman-Ford and Floyd-Warshall </li>
-                        <li><i class="fas fa-check-circle"></i> Implemented all the commonly used algebraic algorithms</li>
-                        <li><i class="fas fa-check-circle"></i> Covered advanced string algorithms like KMP, Z-algorithm, and Manacher’s algorithm.</li>
-                        <li><i class="fas fa-check-circle"></i> Included Fast Fourier Transform (FFT) for efficient polynomial multiplication.</li>
-                        <li><i class="fas fa-check-circle"></i> Clean, well-documented code for each topic, ideal for studying or reference.</li>
-                        <li><i class="fas fa-check-circle"></i> GitHub repository organized by algorithm type and use-case.</li>
-                    </ul>
-                </div>
+        <div class="content-section glass">
+            <h2>Key Features & Highlights</h2>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Implemented advanced data structures: Prefix Trees (Tries), Union-Find, Segment Trees (standard and lazy) and Fenwick Trees</li>
+                <li><i class="fas fa-check-circle"></i> Wrote clean and easy to read graph algorithms such as: Tarjan's bridge and articulation point finding algorithm, SCC, Dijkstra, topological sorting, Prim MST, Euler Cycle detection, Bellman-Ford and Floyd-Warshall</li>
+                <li><i class="fas fa-check-circle"></i> Implemented all the commonly used algebraic algorithms</li>
+                <li><i class="fas fa-check-circle"></i> Covered advanced string algorithms like KMP, Z-algorithm, and Manacher's algorithm</li>
+                <li><i class="fas fa-check-circle"></i> Included Fast Fourier Transform (FFT) for efficient polynomial multiplication</li>
+                <li><i class="fas fa-check-circle"></i> Clean, well-documented code for each topic, ideal for studying or reference</li>
+                <li><i class="fas fa-check-circle"></i> GitHub repository organized by algorithm type and use-case</li>
+            </ul>
+        </div>
 
-                <div class="project-tech-stack-section">
-                    <h2 class="detail-section-title">Technology Stack</h2>
-                    <div class="tech-tags">
-                        <span class="tech-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" class="tech-icon"> C++</span>
-                        <span class="tech-tag"><i class="fas fa-database"></i> Data Structures</span>
-                        <span class="tech-tag"><i class="fas fa-project-diagram"></i> Algorithms</span>
-                        <span class="tech-tag"><i class="fas fa-wave-square"></i> FFT</span>
-                        <span class="tech-tag"><i class="fas fa-search"></i> KMP / Z-algorithm</span>
-                        <span class="tech-tag"><i class="fas fa-heartbeat"></i> Manacher</span>
-                    </div>
-                </div>
-
-                <div class="project-code-section">
-                    <h2 class="detail-section-title">Explore the Code</h2>
-                    <p>The full repository, including algorithm implementations and code samples, is available on GitHub. Perfect for students preparing for competitive programming or algorithm interviews.</p>
-                    <a href="https://github.com/AleksaVukadinovic/KIAA" class="btn btn-primary project-detail-button" target="_blank">
-                        <i class="fab fa-github"></i> View on GitHub
-                    </a>
-                </div>
-
-                <div class="back-link-section">
-                    <a href="index.html#projects" class="btn btn-secondary project-detail-button">
-                        <i class="fas fa-arrow-left"></i> Back to All Projects
-                    </a>
-                </div>
-
+        <div class="content-section glass">
+            <h2>Technology Stack</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" class="tech-icon">
+                    C++
+                </span>
+                <span class="tech-tag">
+                    <i class="fas fa-database"></i> Data Structures
+                </span>
+                <span class="tech-tag">
+                    <i class="fas fa-project-diagram"></i> Algorithms
+                </span>
+                <span class="tech-tag">
+                    <i class="fas fa-wave-square"></i> FFT
+                </span>
+                <span class="tech-tag">
+                    <i class="fas fa-search"></i> KMP / Z-algorithm
+                </span>
+                <span class="tech-tag">
+                    <i class="fas fa-heartbeat"></i> Manacher
+                </span>
             </div>
         </div>
-    </main>
+
+        <div class="content-section glass">
+            <h2>Explore the Code</h2>
+            <p>The full repository, including algorithm implementations and code samples, is available on GitHub. Perfect for students preparing for competitive programming or algorithm interviews.</p>
+            <a href="https://github.com/AleksaVukadinovic/KIAA" class="btn btn-primary" target="_blank">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+            <a href="index.html#projects" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to All Projects
+            </a>
+        </div>
+    </div>
+
     <footer>
-        <div class="container">
-            <div class="footer-social-links">
-                <a href="https://github.com/AleksaVukadinovic" class="footer-link" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" class="footer-link" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:alexvukadin8@gmail.com" class="footer-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p class="copyright">© <span id="current-year">2024</span> Aleksa Vukadinović. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://github.com/AleksaVukadinovic" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" class="social-link" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:alexvukadin8@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
         </div>
+        <p style="color: var(--text-dim);">© 2025 Aleksa Vukadinović. All rights reserved.</p>
     </footer>
-    <script src="script.js"></script>
+
+    <script>
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+        const starCount = 200;
+        
+        for (let i = 0; i < starCount; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.5,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                opacity: Math.random()
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(139, 92, 246, ${star.opacity})`;
+                ctx.fill();
+                
+                star.x += star.vx;
+                star.y += star.vy;
+                
+                if (star.x < 0 || star.x > canvas.width) star.vx *= -1;
+                if (star.y < 0 || star.y > canvas.height) star.vy *= -1;
+                
+                star.opacity += (Math.random() - 0.5) * 0.02;
+                star.opacity = Math.max(0.2, Math.min(1, star.opacity));
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
