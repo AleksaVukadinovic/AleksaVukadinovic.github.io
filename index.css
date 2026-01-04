@@ -55,6 +55,18 @@ nav {
     max-width: 90%;
 }
 
+/* Smooth hide/show transitions for top navigation */
+nav {
+    transition: transform 0.35s cubic-bezier(.2,.9,.2,1), opacity 0.25s ease;
+    will-change: transform, opacity;
+}
+
+.nav-hidden {
+    transform: translate(-50%, -120%);
+    opacity: 0;
+    pointer-events: none;
+}
+
 nav a {
     color: var(--text);
     text-decoration: none;

@@ -535,6 +535,55 @@
                     }
                 });
             });
+
+            // Navigation hide/show on scroll
+            (function () {
+                const nav = document.querySelector('nav');
+                if (!nav) return;
+
+                let lastScroll = window.scrollY;
+                const threshold = 100; // smart threshold to avoid flicker
+                let ticking = false;
+
+                function showNav(instant = false) {
+                    if (instant) {
+                        // show instantly (no transition)
+                        nav.style.transition = 'none';
+                        nav.classList.remove('nav-hidden');
+                        void nav.offsetHeight; // force reflow
+                        nav.style.transition = '';
+                    } else {
+                        nav.classList.remove('nav-hidden');
+                    }
+                }
+
+                function hideNav() {
+                    nav.classList.add('nav-hidden');
+                }
+
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            const current = window.scrollY;
+
+                            // Always visible at top or near top
+                            if (current <= threshold) {
+                                showNav();
+                            } else if (current > lastScroll && current > threshold) {
+                                // scrolling down -> hide (smooth)
+                                hideNav();
+                            } else if (current < lastScroll) {
+                                // scrolling up -> show instantly
+                                showNav(true);
+                            }
+
+                            lastScroll = current;
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }, { passive: true });
+            })();
         </script>
     </body>
 </html>
