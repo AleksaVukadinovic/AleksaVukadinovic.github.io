@@ -5,6 +5,7 @@
      Twinkling starfield
      -------------------------------------------------------------------------- */
   const canvas = document.getElementById("starfield");
+  if (!canvas) return;
   const ctx = canvas.getContext("2d");
   let stars = [];
   let animationId = null;
@@ -102,6 +103,10 @@
   const lasersContainer = document.getElementById("lasers");
   const hero = document.getElementById("hero");
 
+  if (!hero) {
+    spaceship && (spaceship.style.display = "none");
+    trailCanvas && (trailCanvas.style.display = "none");
+  } else {
   const SHIP_COOLDOWN = 10000;
   const SHIP_MARGIN = 64;
   const TRAIL_SPACING = 18;
@@ -324,6 +329,7 @@
     if (e.target.closest("a, button")) return;
     fireLaser(e.clientX, e.clientY);
   });
+  }
 
   /* --------------------------------------------------------------------------
      Navigation
@@ -332,10 +338,12 @@
   const navToggle = document.querySelector(".nav-toggle");
   const navLinks = document.querySelectorAll('.site-nav a, a[href^="#"]');
 
-  navToggle.addEventListener("click", () => {
-    const isOpen = header.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
-  });
+  if (navToggle && header) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = header.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+  }
 
   navLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
@@ -347,14 +355,15 @@
 
       e.preventDefault();
       target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
-      header.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
+      header?.classList.remove("is-open");
+      navToggle?.setAttribute("aria-expanded", "false");
     });
   });
 
   /* --------------------------------------------------------------------------
-     Scroll reveal
+     Scroll reveal (main page only)
      -------------------------------------------------------------------------- */
+  if (hero) {
   const revealElements = document.querySelectorAll(
     ".about__bio, .about__skills, .project-card, .contact-link, .section__header"
   );
@@ -374,6 +383,15 @@
   );
 
   revealElements.forEach((el) => revealObserver.observe(el));
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      header?.classList.toggle("is-scrolled", window.scrollY > 40);
+    },
+    { passive: true }
+  );
 
   /* --------------------------------------------------------------------------
      Footer year
@@ -388,17 +406,26 @@
      -------------------------------------------------------------------------- */
   const themeToggle = document.getElementById("theme-toggle");
   const THEME_KEY = "theme";
+  const BASE_THEME_KEY = "baseTheme";
 
   function getTheme() {
     return document.documentElement.getAttribute("data-theme") || "dark";
   }
 
+  function getBaseTheme() {
+    const saved = localStorage.getItem(BASE_THEME_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+    const current = getTheme();
+    return current === "light" ? "light" : "dark";
+  }
+
   function syncThemeToggle(theme) {
     if (!themeToggle) return;
-    themeToggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+    const base = theme === "frost" ? getBaseTheme() : theme;
+    themeToggle.setAttribute("aria-pressed", base === "light" ? "true" : "false");
     themeToggle.setAttribute(
       "aria-label",
-      theme === "light"
+      base === "light"
         ? "Switch to dark theme (void signal)"
         : "Switch to light theme (solar signal)"
     );
@@ -407,25 +434,203 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem(THEME_KEY, theme);
+    if (theme === "dark" || theme === "light") {
+      localStorage.setItem(BASE_THEME_KEY, theme);
+    }
     syncThemeToggle(theme);
+  }
+
+  function toggleRelayTheme() {
+    if (getTheme() === "frost") {
+      applyTheme(getBaseTheme() === "dark" ? "light" : "dark");
+      return;
+    }
+    applyTheme(getTheme() === "dark" ? "light" : "dark");
+  }
+
+  function toggleFrost() {
+    if (getTheme() === "frost") {
+      applyTheme(getBaseTheme());
+      return;
+    }
+    const base = getTheme() === "light" ? "light" : "dark";
+    localStorage.setItem(BASE_THEME_KEY, base);
+    applyTheme("frost");
   }
 
   syncThemeToggle(getTheme());
 
   if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      applyTheme(getTheme() === "dark" ? "light" : "dark");
-    });
+    themeToggle.addEventListener("click", toggleRelayTheme);
+  }
+
+  function onFrostKey(e) {
+    const el = document.activeElement;
+    if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable)) {
+      return;
+    }
+    if (e.key === "v" || e.key === "V") {
+      e.preventDefault();
+      toggleFrost();
+    }
+  }
+
+  if (!hero) {
+    document.addEventListener("keydown", onFrostKey);
+    return;
   }
 
   /* --------------------------------------------------------------------------
-     Header shadow on scroll
+     Command palette & keyboard shortcuts (main page)
      -------------------------------------------------------------------------- */
-  window.addEventListener(
-    "scroll",
-    () => {
-      header.classList.toggle("is-scrolled", window.scrollY > 40);
-    },
-    { passive: true }
-  );
+  const cmdPalette = document.getElementById("cmd-palette");
+  const cmdItems = document.querySelectorAll("[data-cmd]");
+  let cmdOpen = false;
+  let goPending = false;
+  let goTimer = null;
+
+  function isTypingTarget() {
+    const el = document.activeElement;
+    if (!el) return false;
+    const tag = el.tagName;
+    return tag === "INPUT" || tag === "TEXTAREA" || el.isContentEditable;
+  }
+
+  function scrollToSection(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+    header?.classList.remove("is-open");
+    navToggle?.setAttribute("aria-expanded", "false");
+    closeCmdPalette();
+  }
+
+  function openCmdPalette() {
+    if (!cmdPalette) return;
+    cmdPalette.hidden = false;
+    cmdOpen = true;
+    cmdPalette.querySelector(".cmd-palette__item")?.focus();
+  }
+
+  function closeCmdPalette() {
+    if (!cmdPalette) return;
+    cmdPalette.hidden = true;
+    cmdOpen = false;
+  }
+
+  function toggleCmdPalette() {
+    if (cmdOpen) closeCmdPalette();
+    else openCmdPalette();
+  }
+
+  function runCommand(cmd) {
+    switch (cmd) {
+      case "hero":
+        scrollToSection("hero");
+        break;
+      case "about":
+        scrollToSection("about");
+        break;
+      case "projects":
+        scrollToSection("projects");
+        break;
+      case "contact":
+        scrollToSection("contact");
+        break;
+      case "frost":
+        toggleFrost();
+        closeCmdPalette();
+        break;
+      default:
+        break;
+    }
+  }
+
+  function handleGoChord(key) {
+    const map = {
+      h: "hero",
+      a: "about",
+      p: "projects",
+      c: "contact",
+    };
+    const cmd = map[key];
+    if (cmd) {
+      runCommand(cmd);
+      goPending = false;
+      if (goTimer) clearTimeout(goTimer);
+    }
+  }
+
+  cmdItems.forEach((item) => {
+    item.addEventListener("click", () => runCommand(item.dataset.cmd));
+  });
+
+  cmdPalette?.querySelector("[data-cmd-close]")?.addEventListener("click", closeCmdPalette);
+
+  document.addEventListener("keydown", (e) => {
+    if (isTypingTarget()) return;
+
+    if (e.key === "Escape") {
+      if (cmdOpen) {
+        e.preventDefault();
+        closeCmdPalette();
+      }
+      goPending = false;
+      return;
+    }
+
+    if (e.key === "?" || (e.shiftKey && e.key === "/")) {
+      e.preventDefault();
+      toggleCmdPalette();
+      return;
+    }
+
+    if (cmdOpen) {
+      const key = e.key.toLowerCase();
+      if (key === "v") {
+        e.preventDefault();
+        toggleFrost();
+        return;
+      }
+      if (goPending) {
+        e.preventDefault();
+        handleGoChord(key);
+        return;
+      }
+      if (key === "g") {
+        e.preventDefault();
+        goPending = true;
+        if (goTimer) clearTimeout(goTimer);
+        goTimer = setTimeout(() => {
+          goPending = false;
+        }, 1200);
+        return;
+      }
+      if (key === "h") runCommand("hero");
+      if (key === "a") runCommand("about");
+      if (key === "p") runCommand("projects");
+      if (key === "c") runCommand("contact");
+      return;
+    }
+
+    if (e.key === "v" || e.key === "V") {
+      e.preventDefault();
+      toggleFrost();
+      return;
+    }
+
+    if (e.key === "g" || e.key === "G") {
+      goPending = true;
+      if (goTimer) clearTimeout(goTimer);
+      goTimer = setTimeout(() => {
+        goPending = false;
+      }, 1200);
+      return;
+    }
+
+    if (goPending) {
+      e.preventDefault();
+      handleGoChord(e.key.toLowerCase());
+    }
+  });
 })();

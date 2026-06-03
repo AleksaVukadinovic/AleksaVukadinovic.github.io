@@ -16,11 +16,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <!-- Plausible analytics — replace data-domain if using a custom domain -->
+    <script
+      defer
+      data-domain="aleksavukadinovic.github.io"
+      src="https://plausible.io/js/script.js"
+    ></script>
     <script>
       (function () {
         var saved = localStorage.getItem("theme");
         var theme =
-          saved === "light" || saved === "dark"
+          saved === "light" || saved === "dark" || saved === "frost"
             ? saved
             : window.matchMedia("(prefers-color-scheme: light)").matches
               ? "light"
@@ -357,6 +363,53 @@
       <p><span class="pixel-accent">© <span id="year"></span> Aleksa Vukadinović</span> · Belgrade, Serbia</p>
       <a href="#hero" class="site-footer__top pixel-accent">Back to top ↑</a>
     </footer>
+
+    <div
+      id="cmd-palette"
+      class="cmd-palette"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cmd-palette-title"
+    >
+      <div class="cmd-palette__backdrop" data-cmd-close aria-hidden="true"></div>
+      <div class="cmd-palette__panel">
+        <p id="cmd-palette-title" class="cmd-palette__title pixel-accent">// command relay</p>
+        <p class="cmd-palette__hint">press a key · esc to close</p>
+        <ul class="cmd-palette__list">
+          <li>
+            <button type="button" class="cmd-palette__item" data-cmd="hero">
+              <span class="cmd-palette__keys"><kbd>G</kbd><kbd>H</kbd></span>
+              <span>Jump to home</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="cmd-palette__item" data-cmd="about">
+              <span class="cmd-palette__keys"><kbd>G</kbd><kbd>A</kbd></span>
+              <span>Jump to about</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="cmd-palette__item" data-cmd="projects">
+              <span class="cmd-palette__keys"><kbd>G</kbd><kbd>P</kbd></span>
+              <span>Jump to projects</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="cmd-palette__item" data-cmd="contact">
+              <span class="cmd-palette__keys"><kbd>G</kbd><kbd>C</kbd></span>
+              <span>Jump to contact</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="cmd-palette__item" data-cmd="frost">
+              <span class="cmd-palette__keys"><kbd>V</kbd></span>
+              <span>Toggle frost signal (cold)</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

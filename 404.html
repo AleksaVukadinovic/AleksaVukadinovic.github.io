@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="robots" content="noindex" />
+    <title>Signal Lost · Aleksa Vukadinović</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      defer
+      data-domain="aleksavukadinovic.github.io"
+      src="https://plausible.io/js/script.js"
+    ></script>
+    <script>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        var theme =
+          saved === "light" || saved === "dark" || saved === "frost"
+            ? saved
+            : window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <canvas id="starfield" aria-hidden="true"></canvas>
+
+    <main class="lost-page">
+      <p class="lost-page__code pixel-accent">err · 404</p>
+      <h1 class="lost-page__title">Signal lost.</h1>
+      <p class="lost-page__text">
+        The frequency you tuned into doesn&apos;t exist — the transmission drifted
+        off chart or was never broadcast.
+      </p>
+      <div class="lost-page__actions">
+        <a class="btn btn--primary" href="./">Return to base</a>
+        <a class="btn btn--outline" href="./#contact">Open channel</a>
+      </div>
+      <p class="lost-page__hint pixel-accent" aria-hidden="true">// no carrier wave detected</p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
