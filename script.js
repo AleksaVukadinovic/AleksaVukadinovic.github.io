@@ -2,6 +2,173 @@
   "use strict";
 
   /* --------------------------------------------------------------------------
+     Theme registry
+     -------------------------------------------------------------------------- */
+  const THEME_IDS = [
+    "dark",
+    "light",
+    "frost",
+    "ember",
+    "moss",
+    "dusk",
+    "phosphor",
+    "coral",
+    "ink",
+    "toxic",
+    "dust",
+  ];
+
+  const THEMES = {
+    dark: {
+      label: "void",
+      tagline: "pure monochrome",
+      preview: ["#000000", "#ffffff", "#888888"],
+      ship: "fighter",
+      stars: { divisor: 8000, max: 220, big: 0.15, shape: "pixel" },
+    },
+    light: {
+      label: "sol",
+      tagline: "solar inversion",
+      preview: ["#ffffff", "#000000", "#666666"],
+      ship: "fighter",
+      stars: { divisor: 10000, max: 150, big: 0.08, shape: "pixel" },
+    },
+    frost: {
+      label: "frost",
+      tagline: "cold drift",
+      preview: ["#0a1219", "#dceaf5", "#7eb8dc"],
+      ship: "glider",
+      stars: { divisor: 9500, max: 170, big: 0.22, shape: "diamond" },
+    },
+    ember: {
+      label: "ember",
+      tagline: "burning edge",
+      preview: ["#120808", "#f5dcc8", "#e85a3a"],
+      ship: "wedge",
+      stars: { divisor: 6500, max: 260, big: 0.12, shape: "pixel" },
+    },
+    moss: {
+      label: "moss",
+      tagline: "orbital grove",
+      preview: ["#0a110c", "#d8ead9", "#6ecf7a"],
+      ship: "cargo",
+      stars: { divisor: 9000, max: 190, big: 0.18, shape: "diamond" },
+    },
+    dusk: {
+      label: "dusk",
+      tagline: "violet hour",
+      preview: ["#100818", "#ead8f0", "#c07ad8"],
+      ship: "probe",
+      stars: { divisor: 5500, max: 300, big: 0.06, shape: "pixel" },
+    },
+    phosphor: {
+      label: "phos",
+      tagline: "crt ghost",
+      preview: ["#020a04", "#b8ffb8", "#5cff5c"],
+      ship: "probe",
+      stars: { divisor: 7000, max: 240, big: 0.04, shape: "cross" },
+    },
+    coral: {
+      label: "coral",
+      tagline: "warm nebula",
+      preview: ["#140a0c", "#fde8ea", "#ff7a8a"],
+      ship: "fighter",
+      stars: { divisor: 8500, max: 200, big: 0.2, shape: "diamond" },
+    },
+    ink: {
+      label: "ink",
+      tagline: "midnight paper",
+      preview: ["#0c0e14", "#e8e4d8", "#c8b890"],
+      ship: "cargo",
+      stars: { divisor: 12000, max: 120, big: 0.25, shape: "pixel" },
+    },
+    toxic: {
+      label: "toxic",
+      tagline: "acid rain",
+      preview: ["#080a04", "#e8ffb0", "#c8ff20"],
+      ship: "crystal",
+      stars: { divisor: 6000, max: 280, big: 0.1, shape: "cross" },
+    },
+    dust: {
+      label: "dust",
+      tagline: "mars wind",
+      preview: ["#141008", "#e8dcc8", "#d4a050"],
+      ship: "wedge",
+      stars: { divisor: 11000, max: 100, big: 0.35, shape: "pixel" },
+    },
+  };
+
+  const SHIP_SVGS = {
+    fighter:
+      '<rect x="6" y="0" width="4" height="2" fill="currentColor"/>' +
+      '<rect x="4" y="2" width="8" height="4" fill="currentColor"/>' +
+      '<rect x="2" y="6" width="12" height="2" fill="currentColor"/>' +
+      '<rect x="0" y="8" width="4" height="2" fill="currentColor"/>' +
+      '<rect x="12" y="8" width="4" height="2" fill="currentColor"/>' +
+      '<rect x="6" y="8" width="4" height="4" fill="currentColor"/>',
+    glider:
+      '<rect x="7" y="0" width="2" height="2" fill="currentColor"/>' +
+      '<rect x="5" y="2" width="6" height="2" fill="currentColor"/>' +
+      '<rect x="3" y="4" width="10" height="2" fill="currentColor"/>' +
+      '<rect x="1" y="6" width="14" height="2" fill="currentColor"/>' +
+      '<rect x="6" y="8" width="4" height="3" fill="currentColor"/>',
+    wedge:
+      '<rect x="7" y="0" width="2" height="2" fill="currentColor"/>' +
+      '<rect x="5" y="2" width="6" height="2" fill="currentColor"/>' +
+      '<rect x="3" y="4" width="10" height="4" fill="currentColor"/>' +
+      '<rect x="6" y="8" width="4" height="3" fill="currentColor"/>',
+    cargo:
+      '<rect x="2" y="2" width="12" height="6" fill="currentColor"/>' +
+      '<rect x="0" y="4" width="2" height="2" fill="currentColor"/>' +
+      '<rect x="14" y="4" width="2" height="2" fill="currentColor"/>' +
+      '<rect x="4" y="8" width="8" height="3" fill="currentColor"/>' +
+      '<rect x="1" y="9" width="2" height="2" fill="currentColor" opacity="0.7"/>' +
+      '<rect x="13" y="9" width="2" height="2" fill="currentColor" opacity="0.7"/>',
+    probe:
+      '<rect x="7" y="0" width="2" height="2" fill="currentColor"/>' +
+      '<rect x="7" y="2" width="2" height="6" fill="currentColor"/>' +
+      '<rect x="5" y="8" width="6" height="3" fill="currentColor"/>' +
+      '<rect x="7" y="4" width="2" height="2" fill="currentColor" opacity="0.5"/>',
+    crystal:
+      '<rect x="7" y="0" width="2" height="2" fill="currentColor"/>' +
+      '<rect x="5" y="2" width="6" height="2" fill="currentColor"/>' +
+      '<rect x="3" y="4" width="10" height="2" fill="currentColor"/>' +
+      '<rect x="5" y="6" width="6" height="2" fill="currentColor"/>' +
+      '<rect x="7" y="8" width="2" height="3" fill="currentColor"/>',
+  };
+
+  function getThemeMeta() {
+    const id = document.documentElement.getAttribute("data-theme") || "dark";
+    return THEMES[id] || THEMES.dark;
+  }
+
+  function paintStar(star, alpha) {
+    const x = Math.floor(star.x);
+    const y = Math.floor(star.y);
+    ctx.fillStyle = starColor(alpha);
+
+    if (star.shape === "diamond") {
+      ctx.fillRect(x, y, 1, 1);
+      ctx.fillRect(x - 1, y, 1, 1);
+      ctx.fillRect(x + 1, y, 1, 1);
+      ctx.fillRect(x, y - 1, 1, 1);
+      ctx.fillRect(x, y + 1, 1, 1);
+      return;
+    }
+
+    if (star.shape === "cross") {
+      ctx.fillRect(x, y, 1, 1);
+      ctx.fillRect(x - 1, y, 1, 1);
+      ctx.fillRect(x + 1, y, 1, 1);
+      ctx.fillRect(x, y - 1, 1, 1);
+      ctx.fillRect(x, y + 1, 1, 1);
+      return;
+    }
+
+    ctx.fillRect(x, y, star.size, star.size);
+  }
+
+  /* --------------------------------------------------------------------------
      Twinkling starfield
      -------------------------------------------------------------------------- */
   const canvas = document.getElementById("starfield");
@@ -35,17 +202,32 @@
   }
 
   function initStars() {
-    const count = Math.floor((window.innerWidth * window.innerHeight) / 8000);
-    stars = Array.from({ length: Math.min(count, 220) }, () => ({
+    const cfg = getThemeMeta().stars;
+    const count = Math.floor((window.innerWidth * window.innerHeight) / cfg.divisor);
+    stars = Array.from({ length: Math.min(count, cfg.max) }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() > 0.85 ? 2 : 1,
+      size: Math.random() < cfg.big ? 2 : 1,
+      shape: cfg.shape,
       opacity: Math.random(),
       twinkleSpeed: 0.008 + Math.random() * 0.02,
       twinklePhase: Math.random() * Math.PI * 2,
       driftX: (Math.random() - 0.5) * 0.08,
       driftY: (Math.random() - 0.5) * 0.05,
     }));
+  }
+
+  function refreshStarfield() {
+    cancelAnimationFrame(animationId);
+    initStars();
+    if (!prefersReducedMotion) {
+      drawStars();
+    } else {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (const star of stars) {
+        paintStar(star, 0.6);
+      }
+    }
   }
 
   function drawStars() {
@@ -66,17 +248,13 @@
         if (star.y > window.innerHeight) star.y = 0;
       }
 
-      ctx.fillStyle = starColor(alpha);
-      ctx.fillRect(
-        Math.floor(star.x),
-        Math.floor(star.y),
-        star.size,
-        star.size
-      );
+      paintStar(star, alpha);
     }
 
     animationId = requestAnimationFrame(drawStars);
   }
+
+  document.documentElement.addEventListener("themechange", refreshStarfield);
 
   resizeCanvas();
   if (!prefersReducedMotion) {
@@ -84,8 +262,7 @@
   } else {
     initStars();
     for (const star of stars) {
-      ctx.fillStyle = starColor(0.6);
-      ctx.fillRect(Math.floor(star.x), Math.floor(star.y), star.size, star.size);
+      paintStar(star, 0.6);
     }
   }
 
@@ -402,81 +579,139 @@
   }
 
   /* --------------------------------------------------------------------------
-     Theme relay — orbital eclipse switch
+     Theme tuner — spectrum channel picker
      -------------------------------------------------------------------------- */
-  const themeToggle = document.getElementById("theme-toggle");
   const THEME_KEY = "theme";
-  const BASE_THEME_KEY = "baseTheme";
+  const themeTuner = document.getElementById("theme-tuner");
+  const themeTrigger = document.getElementById("theme-tuner-trigger");
+  const themeMenu = document.getElementById("theme-tuner-menu");
+  const themeLabel = document.getElementById("theme-tuner-label");
+  const shipSvg = document.querySelector(".spaceship__svg");
+  let themeMenuOpen = false;
 
   function getTheme() {
     return document.documentElement.getAttribute("data-theme") || "dark";
   }
 
-  function getBaseTheme() {
-    const saved = localStorage.getItem(BASE_THEME_KEY);
-    if (saved === "light" || saved === "dark") return saved;
-    const current = getTheme();
-    return current === "light" ? "light" : "dark";
+  function updateShipVariant(shipKey) {
+    if (!shipSvg) return;
+    shipSvg.innerHTML = SHIP_SVGS[shipKey] || SHIP_SVGS.fighter;
   }
 
-  function syncThemeToggle(theme) {
-    if (!themeToggle) return;
-    const base = theme === "frost" ? getBaseTheme() : theme;
-    themeToggle.setAttribute("aria-pressed", base === "light" ? "true" : "false");
-    themeToggle.setAttribute(
-      "aria-label",
-      base === "light"
-        ? "Switch to dark theme (void signal)"
-        : "Switch to light theme (solar signal)"
+  function syncThemeTuner(themeId) {
+    const meta = THEMES[themeId] || THEMES.dark;
+    if (themeLabel) {
+      themeLabel.textContent = "ch:" + meta.label;
+    }
+    themeMenu?.querySelectorAll(".theme-tuner__option").forEach((btn) => {
+      const active = btn.dataset.theme === themeId;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-selected", String(active));
+    });
+  }
+
+  function applyTheme(themeId) {
+    if (!THEMES[themeId]) return;
+    document.documentElement.setAttribute("data-theme", themeId);
+    localStorage.setItem(THEME_KEY, themeId);
+    updateShipVariant(THEMES[themeId].ship);
+    syncThemeTuner(themeId);
+    document.documentElement.dispatchEvent(
+      new CustomEvent("themechange", { detail: { theme: themeId } })
     );
   }
 
-  function applyTheme(theme) {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem(THEME_KEY, theme);
-    if (theme === "dark" || theme === "light") {
-      localStorage.setItem(BASE_THEME_KEY, theme);
-    }
-    syncThemeToggle(theme);
+  function closeThemeMenu() {
+    if (!themeMenu || !themeTrigger) return;
+    themeMenu.hidden = true;
+    themeMenuOpen = false;
+    themeTrigger.setAttribute("aria-expanded", "false");
+    themeTuner?.classList.remove("is-open");
   }
 
-  function toggleRelayTheme() {
-    if (getTheme() === "frost") {
-      applyTheme(getBaseTheme() === "dark" ? "light" : "dark");
-      return;
-    }
-    applyTheme(getTheme() === "dark" ? "light" : "dark");
+  function openThemeMenu() {
+    if (!themeMenu || !themeTrigger) return;
+    themeMenu.hidden = false;
+    themeMenuOpen = true;
+    themeTrigger.setAttribute("aria-expanded", "true");
+    themeTuner?.classList.add("is-open");
+    themeMenu.querySelector(".theme-tuner__option.is-active")?.focus();
   }
 
-  function toggleFrost() {
-    if (getTheme() === "frost") {
-      applyTheme(getBaseTheme());
-      return;
-    }
-    const base = getTheme() === "light" ? "light" : "dark";
-    localStorage.setItem(BASE_THEME_KEY, base);
-    applyTheme("frost");
+  function toggleThemeMenu() {
+    if (themeMenuOpen) closeThemeMenu();
+    else openThemeMenu();
   }
 
-  syncThemeToggle(getTheme());
+  function buildThemeMenu() {
+    if (!themeMenu) return;
 
-  if (themeToggle) {
-    themeToggle.addEventListener("click", toggleRelayTheme);
+    const header = document.createElement("p");
+    header.className = "theme-tuner__header pixel-accent";
+    header.textContent = "// tune carrier wave";
+
+    const grid = document.createElement("div");
+    grid.className = "theme-tuner__grid";
+
+    THEME_IDS.forEach((id) => {
+      const meta = THEMES[id];
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "theme-tuner__option";
+      btn.role = "option";
+      btn.dataset.theme = id;
+      btn.setAttribute("aria-selected", "false");
+
+      const swatch = document.createElement("span");
+      swatch.className = "theme-tuner__swatch";
+      swatch.setAttribute("aria-hidden", "true");
+      meta.preview.forEach((color) => {
+        const band = document.createElement("span");
+        band.style.background = color;
+        swatch.appendChild(band);
+      });
+
+      const metaWrap = document.createElement("span");
+      metaWrap.className = "theme-tuner__meta";
+      metaWrap.innerHTML =
+        '<span class="theme-tuner__name">' +
+        meta.label +
+        '</span><span class="theme-tuner__tag">' +
+        meta.tagline +
+        "</span>";
+
+      btn.append(swatch, metaWrap);
+      btn.addEventListener("click", () => {
+        applyTheme(id);
+        closeThemeMenu();
+      });
+      grid.appendChild(btn);
+    });
+
+    themeMenu.append(header, grid);
   }
 
-  function onFrostKey(e) {
-    const el = document.activeElement;
-    if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable)) {
-      return;
+  buildThemeMenu();
+  applyTheme(getTheme());
+
+  themeTrigger?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleThemeMenu();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!themeMenuOpen || !themeTuner) return;
+    if (!themeTuner.contains(e.target)) closeThemeMenu();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && themeMenuOpen) {
+      closeThemeMenu();
+      themeTrigger?.focus();
     }
-    if (e.key === "v" || e.key === "V") {
-      e.preventDefault();
-      toggleFrost();
-    }
-  }
+  });
 
   if (!hero) {
-    document.addEventListener("keydown", onFrostKey);
     return;
   }
 
@@ -537,8 +772,8 @@
       case "contact":
         scrollToSection("contact");
         break;
-      case "frost":
-        toggleFrost();
+      case "themes":
+        openThemeMenu();
         closeCmdPalette();
         break;
       default:
@@ -587,9 +822,10 @@
 
     if (cmdOpen) {
       const key = e.key.toLowerCase();
-      if (key === "v") {
+      if (key === "t") {
         e.preventDefault();
-        toggleFrost();
+        openThemeMenu();
+        closeCmdPalette();
         return;
       }
       if (goPending) {
@@ -613,9 +849,9 @@
       return;
     }
 
-    if (e.key === "v" || e.key === "V") {
+    if (e.key === "t" || e.key === "T") {
       e.preventDefault();
-      toggleFrost();
+      toggleThemeMenu();
       return;
     }
 

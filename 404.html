@@ -21,8 +21,21 @@
     <script>
       (function () {
         var saved = localStorage.getItem("theme");
+        var valid = [
+          "dark",
+          "light",
+          "frost",
+          "ember",
+          "moss",
+          "dusk",
+          "phosphor",
+          "coral",
+          "ink",
+          "toxic",
+          "dust",
+        ];
         var theme =
-          saved === "light" || saved === "dark" || saved === "frost"
+          valid.indexOf(saved) >= 0
             ? saved
             : window.matchMedia("(prefers-color-scheme: light)").matches
               ? "light"

@@ -24,9 +24,22 @@
     ></script>
     <script>
       (function () {
+        var valid = [
+          "dark",
+          "light",
+          "frost",
+          "ember",
+          "moss",
+          "dusk",
+          "phosphor",
+          "coral",
+          "ink",
+          "toxic",
+          "dust",
+        ];
         var saved = localStorage.getItem("theme");
         var theme =
-          saved === "light" || saved === "dark" || saved === "frost"
+          valid.indexOf(saved) >= 0
             ? saved
             : window.matchMedia("(prefers-color-scheme: light)").matches
               ? "light"
@@ -73,29 +86,33 @@
       </nav>
 
       <div class="site-header__tools">
-        <button
-          class="theme-relay"
-          id="theme-toggle"
-          type="button"
-          aria-pressed="false"
-          aria-label="Switch to light theme"
-        >
-          <span class="theme-relay__viewport" aria-hidden="true">
-            <span class="theme-relay__void">
-              <span class="theme-relay__star"></span>
-              <span class="theme-relay__star"></span>
-              <span class="theme-relay__star"></span>
+        <div class="theme-tuner" id="theme-tuner">
+          <button
+            class="theme-tuner__trigger"
+            id="theme-tuner-trigger"
+            type="button"
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-controls="theme-tuner-menu"
+            aria-label="Choose visual theme"
+          >
+            <span class="theme-tuner__scope" aria-hidden="true">
+              <span class="theme-tuner__band"></span>
+              <span class="theme-tuner__sweep"></span>
+              <span class="theme-tuner__dot"></span>
             </span>
-            <span class="theme-relay__sol">
-              <span class="theme-relay__sun"></span>
+            <span class="theme-tuner__readout pixel-accent">
+              <span class="theme-tuner__freq" id="theme-tuner-label">ch:void</span>
             </span>
-            <span class="theme-relay__disc"></span>
-          </span>
-          <span class="theme-relay__readout pixel-accent" aria-hidden="true">
-            <span class="theme-relay__sig theme-relay__sig--void">sig:void</span>
-            <span class="theme-relay__sig theme-relay__sig--sol">sig:sol</span>
-          </span>
-        </button>
+          </button>
+          <div
+            class="theme-tuner__menu"
+            id="theme-tuner-menu"
+            role="listbox"
+            aria-label="Theme channels"
+            hidden
+          ></div>
+        </div>
 
         <button
           class="nav-toggle"
@@ -127,6 +144,35 @@
             <rect x="4" y="2" width="8" height="2" fill="currentColor" />
             <rect x="2" y="4" width="12" height="8" fill="currentColor" />
             <rect x="4" y="12" width="8" height="2" fill="currentColor" />
+          </svg>
+          <svg class="planet planet--3 decor-item" viewBox="0 0 28 20" width="56" height="40">
+            <rect x="10" y="6" width="8" height="8" fill="currentColor" />
+            <rect x="2" y="10" width="24" height="2" fill="currentColor" opacity="0.55" />
+            <rect x="4" y="8" width="20" height="2" fill="currentColor" opacity="0.35" />
+            <rect x="4" y="14" width="20" height="2" fill="currentColor" opacity="0.35" />
+          </svg>
+          <svg class="decor-moon decor-item" viewBox="0 0 16 16" width="32" height="32">
+            <rect x="6" y="2" width="6" height="2" fill="currentColor" />
+            <rect x="4" y="4" width="8" height="2" fill="currentColor" />
+            <rect x="4" y="6" width="6" height="2" fill="currentColor" />
+            <rect x="4" y="8" width="4" height="2" fill="currentColor" />
+            <rect x="4" y="10" width="6" height="2" fill="currentColor" />
+            <rect x="4" y="12" width="8" height="2" fill="currentColor" />
+          </svg>
+          <svg class="decor-sun decor-item" viewBox="0 0 20 20" width="40" height="40">
+            <rect x="8" y="2" width="4" height="2" fill="currentColor" />
+            <rect x="8" y="16" width="4" height="2" fill="currentColor" />
+            <rect x="2" y="8" width="2" height="4" fill="currentColor" />
+            <rect x="16" y="8" width="2" height="4" fill="currentColor" />
+            <rect x="6" y="6" width="8" height="8" fill="currentColor" />
+          </svg>
+          <svg class="decor-cluster decor-item" viewBox="0 0 32 20" width="64" height="40">
+            <rect x="2" y="8" width="2" height="2" fill="currentColor" opacity="0.7" />
+            <rect x="8" y="4" width="2" height="2" fill="currentColor" />
+            <rect x="14" y="10" width="2" height="2" fill="currentColor" opacity="0.5" />
+            <rect x="20" y="6" width="2" height="2" fill="currentColor" />
+            <rect x="26" y="12" width="2" height="2" fill="currentColor" opacity="0.6" />
+            <rect x="11" y="14" width="2" height="2" fill="currentColor" opacity="0.4" />
           </svg>
         </div>
 
@@ -402,9 +448,9 @@
             </button>
           </li>
           <li>
-            <button type="button" class="cmd-palette__item" data-cmd="frost">
-              <span class="cmd-palette__keys"><kbd>V</kbd></span>
-              <span>Toggle frost signal (cold)</span>
+            <button type="button" class="cmd-palette__item" data-cmd="themes">
+              <span class="cmd-palette__keys"><kbd>T</kbd></span>
+              <span>Open theme tuner</span>
             </button>
           </li>
         </ul>
