@@ -317,6 +317,29 @@ strong {
   pointer-events: none;
 }
 
+.theme-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ink-squid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--fg);
+  opacity: 0.32;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: opacity 0.45s var(--ease);
+}
+
+.ink-squid__svg {
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--accent-glow) 40%, transparent));
+}
+
 /* Spaceship easter egg */
 .spaceship {
   position: fixed;

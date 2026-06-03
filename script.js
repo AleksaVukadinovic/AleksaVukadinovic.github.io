@@ -38,6 +38,8 @@
       tagline: "cold drift",
       preview: ["#0a1219", "#dceaf5", "#7eb8dc"],
       ship: "glider",
+      shipSpeed: 0.48,
+      effect: "snow",
       stars: { divisor: 9500, max: 170, big: 0.22, shape: "diamond" },
     },
     ember: {
@@ -45,6 +47,7 @@
       tagline: "burning edge",
       preview: ["#120808", "#f5dcc8", "#e85a3a"],
       ship: "wedge",
+      effect: "meteors",
       stars: { divisor: 6500, max: 260, big: 0.12, shape: "pixel" },
     },
     moss: {
@@ -59,6 +62,7 @@
       tagline: "violet hour",
       preview: ["#100818", "#ead8f0", "#c07ad8"],
       ship: "probe",
+      shipSpeed: 0.52,
       stars: { divisor: 5500, max: 300, big: 0.06, shape: "pixel" },
     },
     phosphor: {
@@ -80,6 +84,7 @@
       tagline: "midnight paper",
       preview: ["#0c0e14", "#e8e4d8", "#c8b890"],
       ship: "cargo",
+      effect: "squid",
       stars: { divisor: 12000, max: 120, big: 0.25, shape: "pixel" },
     },
     toxic: {
@@ -94,7 +99,9 @@
       tagline: "mars wind",
       preview: ["#141008", "#e8dcc8", "#d4a050"],
       ship: "wedge",
-      stars: { divisor: 11000, max: 100, big: 0.35, shape: "pixel" },
+      shipEnabled: false,
+      effect: "wind",
+      stars: { divisor: 14000, max: 70, big: 0.2, shape: "pixel" },
     },
   };
 
@@ -137,9 +144,12 @@
       '<rect x="7" y="8" width="2" height="3" fill="currentColor"/>',
   };
 
+  function getThemeId() {
+    return document.documentElement.getAttribute("data-theme") || "dark";
+  }
+
   function getThemeMeta() {
-    const id = document.documentElement.getAttribute("data-theme") || "dark";
-    return THEMES[id] || THEMES.dark;
+    return THEMES[getThemeId()] || THEMES.dark;
   }
 
   function paintStar(star, alpha) {
@@ -166,6 +176,198 @@
     }
 
     ctx.fillRect(x, y, star.size, star.size);
+  }
+
+  /* --------------------------------------------------------------------------
+     Per-theme canvas effects (snow, meteors, wind)
+     -------------------------------------------------------------------------- */
+  let themeFxState = null;
+  let windGustTimer = null;
+
+  function clearWindGustTimer() {
+    if (windGustTimer) {
+      clearTimeout(windGustTimer);
+      windGustTimer = null;
+    }
+  }
+
+  function initThemeFx() {
+    clearWindGustTimer();
+    const effect = getThemeMeta().effect;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    if (effect === "snow") {
+      const count = 14 + Math.floor(Math.random() * 10);
+      themeFxState = {
+        kind: "snow",
+        flakes: Array.from({ length: count }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vy: 0.25 + Math.random() * 0.45,
+          vx: (Math.random() - 0.5) * 0.25,
+          size: Math.random() > 0.75 ? 2 : 1,
+          phase: Math.random() * Math.PI * 2,
+        })),
+      };
+      return;
+    }
+
+    if (effect === "meteors") {
+      themeFxState = { kind: "meteors", meteors: [], spawnAcc: 0 };
+      return;
+    }
+
+    if (effect === "wind") {
+      themeFxState = { kind: "wind", gusts: [] };
+      if (!prefersReducedMotion) scheduleWindGust();
+      return;
+    }
+
+    themeFxState = null;
+  }
+
+  function scheduleWindGust() {
+    clearWindGustTimer();
+    if (getThemeMeta().effect !== "wind" || prefersReducedMotion) return;
+    windGustTimer = setTimeout(() => {
+      spawnWindGust();
+      scheduleWindGust();
+    }, 2200 + Math.random() * 4800);
+  }
+
+  function spawnWindGust() {
+    if (!themeFxState || themeFxState.kind !== "wind") return;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const fromLeft = Math.random() > 0.5;
+    const dotCount = 6 + Math.floor(Math.random() * 14);
+    const dots = [];
+
+    for (let i = 0; i < dotCount; i++) {
+      dots.push({
+        ox: i * (2 + Math.random() * 2),
+        oy: (Math.random() - 0.5) * 10,
+        alpha: 0.25 + Math.random() * 0.45,
+      });
+    }
+
+    themeFxState.gusts.push({
+      x: fromLeft ? -20 : w + 20,
+      y: Math.random() * h,
+      dir: fromLeft ? 1 : -1,
+      speed: 6 + Math.random() * 10,
+      life: 1,
+      dots,
+    });
+  }
+
+  function spawnMeteor() {
+    if (!themeFxState || themeFxState.kind !== "meteors") return;
+    const w = window.innerWidth;
+    const angle = ((Math.random() * 40 + 15) * Math.PI) / 180;
+    const speed = 4 + Math.random() * 5;
+    themeFxState.meteors.push({
+      x: Math.random() * w,
+      y: -8 - Math.random() * 40,
+      vx: Math.sin(angle) * speed * (Math.random() > 0.5 ? 1 : -1),
+      vy: Math.cos(angle) * speed,
+      len: 4 + Math.floor(Math.random() * 6),
+      life: 1,
+    });
+  }
+
+  function paintSnowflake(flake) {
+    const x = Math.floor(flake.x + Math.sin(flake.phase) * 0.6);
+    const y = Math.floor(flake.y);
+    const alpha = 0.18 + Math.sin(flake.phase) * 0.1;
+    ctx.fillStyle = starColor(alpha);
+    ctx.fillRect(x, y, 1, 1);
+    ctx.fillRect(x - 1, y, 1, 1);
+    ctx.fillRect(x + 1, y, 1, 1);
+    ctx.fillRect(x, y - 1, 1, 1);
+    ctx.fillRect(x, y + 1, 1, 1);
+    if (flake.size > 1) {
+      ctx.fillRect(x - 1, y - 1, 1, 1);
+      ctx.fillRect(x + 1, y + 1, 1, 1);
+    }
+  }
+
+  function paintMeteor(m) {
+    for (let i = 0; i < m.len; i++) {
+      const t = i / Math.max(1, m.len - 1);
+      const px = Math.floor(m.x - m.vx * i * 1.4);
+      const py = Math.floor(m.y - m.vy * i * 1.4);
+      ctx.fillStyle = starColor((1 - t) * 0.75 * m.life);
+      ctx.fillRect(px, py, 2, 2);
+    }
+    ctx.fillStyle = starColor(0.95 * m.life);
+    ctx.fillRect(Math.floor(m.x), Math.floor(m.y), 2, 2);
+  }
+
+  function paintWindGust(gust) {
+    for (const dot of gust.dots) {
+      const x = Math.floor(gust.x + dot.ox * gust.dir);
+      const y = Math.floor(gust.y + dot.oy);
+      ctx.fillStyle = starColor(dot.alpha * gust.life * 0.7);
+      ctx.fillRect(x, y, 1, 1);
+      if (dot.alpha > 0.45) {
+        ctx.fillRect(x + gust.dir, y, 1, 1);
+      }
+    }
+  }
+
+  function updateAndDrawThemeFx() {
+    if (!themeFxState || prefersReducedMotion) return;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    if (themeFxState.kind === "snow") {
+      for (const flake of themeFxState.flakes) {
+        flake.phase += 0.015;
+        flake.x += flake.vx;
+        flake.y += flake.vy;
+        if (flake.y > h + 4) {
+          flake.y = -4;
+          flake.x = Math.random() * w;
+        }
+        if (flake.x < -4) flake.x = w + 4;
+        if (flake.x > w + 4) flake.x = -4;
+        paintSnowflake(flake);
+      }
+      return;
+    }
+
+    if (themeFxState.kind === "meteors") {
+      themeFxState.spawnAcc += 1;
+      if (themeFxState.spawnAcc > 28 && themeFxState.meteors.length < 5) {
+        if (Math.random() > 0.55) spawnMeteor();
+        themeFxState.spawnAcc = 0;
+      }
+
+      themeFxState.meteors = themeFxState.meteors.filter((m) => {
+        m.x += m.vx;
+        m.y += m.vy;
+        m.life = Math.min(1, m.life + 0.02);
+        const alive = m.y < h + 30 && m.x > -40 && m.x < w + 40;
+        if (alive) paintMeteor(m);
+        return alive;
+      });
+      return;
+    }
+
+    if (themeFxState.kind === "wind") {
+      themeFxState.gusts = themeFxState.gusts.filter((gust) => {
+        gust.x += gust.speed * gust.dir;
+        gust.life -= 0.012;
+        const alive =
+          gust.life > 0 &&
+          gust.x > -80 &&
+          gust.x < w + 80;
+        if (alive) paintWindGust(gust);
+        return alive;
+      });
+    }
   }
 
   /* --------------------------------------------------------------------------
@@ -199,6 +401,7 @@
     canvas.style.height = window.innerHeight + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     initStars();
+    initThemeFx();
   }
 
   function initStars() {
@@ -220,6 +423,7 @@
   function refreshStarfield() {
     cancelAnimationFrame(animationId);
     initStars();
+    initThemeFx();
     if (!prefersReducedMotion) {
       drawStars();
     } else {
@@ -251,6 +455,8 @@
       paintStar(star, alpha);
     }
 
+    updateAndDrawThemeFx();
+
     animationId = requestAnimationFrame(drawStars);
   }
 
@@ -278,7 +484,23 @@
   const spaceship = document.getElementById("spaceship");
   const trailCanvas = document.getElementById("ship-trail");
   const lasersContainer = document.getElementById("lasers");
+  const themeFxContainer = document.getElementById("theme-fx");
   const hero = document.getElementById("hero");
+
+  const SQUID_SVG =
+    '<svg class="ink-squid__svg" viewBox="0 0 20 16" width="36" height="28" aria-hidden="true">' +
+    '<rect x="7" y="0" width="6" height="3" fill="currentColor"/>' +
+    '<rect x="5" y="3" width="10" height="4" fill="currentColor"/>' +
+    '<rect x="6" y="7" width="8" height="2" fill="currentColor"/>' +
+    '<rect x="4" y="9" width="2" height="3" fill="currentColor" opacity="0.85"/>' +
+    '<rect x="3" y="12" width="2" height="2" fill="currentColor" opacity="0.6"/>' +
+    '<rect x="8" y="9" width="2" height="4" fill="currentColor" opacity="0.75"/>' +
+    '<rect x="7" y="13" width="2" height="2" fill="currentColor" opacity="0.5"/>' +
+    '<rect x="11" y="9" width="2" height="3" fill="currentColor" opacity="0.8"/>' +
+    '<rect x="12" y="12" width="2" height="2" fill="currentColor" opacity="0.55"/>' +
+    '<rect x="14" y="9" width="2" height="3" fill="currentColor" opacity="0.85"/>' +
+    '<rect x="15" y="12" width="2" height="2" fill="currentColor" opacity="0.6"/>' +
+    "</svg>";
 
   if (!hero) {
     spaceship && (spaceship.style.display = "none");
@@ -289,6 +511,7 @@
   const TRAIL_SPACING = 18;
   const TRAIL_MAX = 12;
   const TRAIL_BRIGHT = 5;
+  const SQUID_MARGIN = 48;
 
   let trailCtx = null;
   let shipState = "idle";
@@ -302,7 +525,11 @@
   let pathControl = null;
   let pathEnd = null;
   let pathT = 0;
-  let pathDelta = 0;
+  let pathBaseSpeed = 0;
+  let pathLength = 1;
+  let squids = [];
+  let squidSpawnTimer = null;
+  let shipSpawnTimer = null;
 
   function resizeTrailCanvas() {
     if (!trailCanvas) return;
@@ -354,6 +581,76 @@
     }
   }
 
+  function buildFlightPath(margin) {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    let attempts = 0;
+    let start;
+    let end;
+
+    do {
+      start = randomEdgePoint(margin);
+      end = randomEdgePoint(margin);
+      attempts++;
+    } while (
+      attempts < 20 &&
+      Math.hypot(end.x - start.x, end.y - start.y) < Math.min(w, h) * 0.45
+    );
+
+    const midX = (start.x + end.x) / 2;
+    const midY = (start.y + end.y) / 2;
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const bend =
+      (Math.random() > 0.5 ? 1 : -1) *
+      (100 + Math.random() * Math.min(w, h) * 0.22);
+
+    return {
+      start,
+      end,
+      control: {
+        x: midX + (-dy / len) * bend,
+        y: midY + (dx / len) * bend,
+      },
+      length: len,
+    };
+  }
+
+  function bezierPointFrom(path, t) {
+    const u = 1 - t;
+    return {
+      x:
+        u * u * path.start.x +
+        2 * u * t * path.control.x +
+        t * t * path.end.x,
+      y:
+        u * u * path.start.y +
+        2 * u * t * path.control.y +
+        t * t * path.end.y,
+    };
+  }
+
+  function bezierTangentFrom(path, t) {
+    const u = 1 - t;
+    return {
+      x:
+        2 * u * (path.control.x - path.start.x) +
+        2 * t * (path.end.x - path.control.x),
+      y:
+        2 * u * (path.control.y - path.start.y) +
+        2 * t * (path.end.y - path.control.y),
+    };
+  }
+
+  function isShipEnabled() {
+    return getThemeMeta().shipEnabled !== false;
+  }
+
+  function getShipSpeedMult() {
+    return getThemeMeta().shipSpeed ?? 1;
+  }
+
   function bezierPoint(t) {
     const u = 1 - t;
     return {
@@ -380,38 +677,25 @@
     };
   }
 
+  function scheduleShipSpawn(delay) {
+    if (shipSpawnTimer) clearTimeout(shipSpawnTimer);
+    if (!isShipEnabled() || prefersReducedMotion) return;
+    shipSpawnTimer = setTimeout(() => {
+      shipSpawnTimer = null;
+      if (shipState === "idle") spawnShip();
+    }, delay);
+  }
+
   function spawnShip() {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    let attempts = 0;
+    if (!isShipEnabled()) return;
 
-    do {
-      pathStart = randomEdgePoint(SHIP_MARGIN);
-      pathEnd = randomEdgePoint(SHIP_MARGIN);
-      attempts++;
-    } while (
-      attempts < 20 &&
-      Math.hypot(pathEnd.x - pathStart.x, pathEnd.y - pathStart.y) <
-        Math.min(w, h) * 0.45
-    );
-
-    const midX = (pathStart.x + pathEnd.x) / 2;
-    const midY = (pathStart.y + pathEnd.y) / 2;
-    const dx = pathEnd.x - pathStart.x;
-    const dy = pathEnd.y - pathStart.y;
-    const len = Math.hypot(dx, dy) || 1;
-    const bend =
-      (Math.random() > 0.5 ? 1 : -1) *
-      (100 + Math.random() * Math.min(w, h) * 0.22);
-
-    pathControl = {
-      x: midX + (-dy / len) * bend,
-      y: midY + (dx / len) * bend,
-    };
-
+    const flight = buildFlightPath(SHIP_MARGIN);
+    pathStart = flight.start;
+    pathEnd = flight.end;
+    pathControl = flight.control;
+    pathLength = flight.length;
     pathT = 0;
-    const speed = 1.1 + Math.random() * 1.4;
-    pathDelta = speed / len;
+    pathBaseSpeed = 1.1 + Math.random() * 1.4;
 
     shipX = pathStart.x;
     shipY = pathStart.y;
@@ -441,6 +725,8 @@
     trail = [];
     drawTrail();
 
+    if (!isShipEnabled()) return;
+
     if (cooldownTimer) clearTimeout(cooldownTimer);
     cooldownTimer = setTimeout(() => {
       cooldownTimer = null;
@@ -450,7 +736,7 @@
 
   function updateShip() {
     if (shipState === "flying") {
-      pathT += pathDelta;
+      pathT += (pathBaseSpeed * getShipSpeedMult()) / pathLength;
 
       if (pathT >= 1 || isOffScreen(shipX, shipY)) {
         endFlight();
@@ -473,11 +759,12 @@
       }
     }
 
+    updateSquids();
     requestAnimationFrame(updateShip);
   }
 
   function fireLaser(clientX, clientY) {
-    if (prefersReducedMotion || shipState !== "flying") return;
+    if (prefersReducedMotion || shipState !== "flying" || !isShipEnabled()) return;
 
     const laser = document.createElement("span");
     laser.className = "laser";
@@ -492,10 +779,126 @@
     laser.addEventListener("animationend", () => laser.remove());
   }
 
+  function destroySquids() {
+    squids = [];
+    if (squidSpawnTimer) {
+      clearTimeout(squidSpawnTimer);
+      squidSpawnTimer = null;
+    }
+    if (themeFxContainer) themeFxContainer.innerHTML = "";
+  }
+
+  function spawnSquid() {
+    if (!themeFxContainer || getThemeMeta().effect !== "squid") return;
+
+    const flight = buildFlightPath(SQUID_MARGIN);
+    const el = document.createElement("div");
+    el.className = "ink-squid";
+    el.innerHTML = SQUID_SVG;
+    themeFxContainer.appendChild(el);
+
+    squids.push({
+      el,
+      path: flight,
+      t: 0,
+      baseSpeed: 0.45 + Math.random() * 0.35,
+      active: true,
+    });
+  }
+
+  function initSquids() {
+    destroySquids();
+    if (getThemeMeta().effect !== "squid" || prefersReducedMotion) return;
+
+    spawnSquid();
+    squidSpawnTimer = setTimeout(() => {
+      spawnSquid();
+      squidSpawnTimer = setTimeout(spawnSquid, 3500 + Math.random() * 2500);
+    }, 1800 + Math.random() * 2000);
+  }
+
+  function isSquidOffScreen(x, y) {
+    return (
+      x < -SQUID_MARGIN ||
+      x > window.innerWidth + SQUID_MARGIN ||
+      y < -SQUID_MARGIN ||
+      y > window.innerHeight + SQUID_MARGIN
+    );
+  }
+
+  function updateSquids() {
+    if (getThemeMeta().effect !== "squid" || squids.length === 0) return;
+
+    for (const squid of squids) {
+      if (!squid.active) continue;
+
+      squid.t += squid.baseSpeed / squid.path.length;
+      const pos = bezierPointFrom(squid.path, squid.t);
+      if (squid.t >= 1 || isSquidOffScreen(pos.x, pos.y)) {
+        squid.active = false;
+        squid.el.remove();
+        continue;
+      }
+
+      const tangent = bezierTangentFrom(squid.path, squid.t);
+      const angle = Math.atan2(tangent.y, tangent.x) * (180 / Math.PI) + 90;
+      squid.el._x = pos.x;
+      squid.el._y = pos.y;
+      squid.el.style.transform = `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%) rotate(${angle}deg)`;
+    }
+
+    squids = squids.filter((squid) => squid.active);
+
+    if (
+      squids.length < 3 &&
+      getThemeMeta().effect === "squid" &&
+      !squidSpawnTimer &&
+      Math.random() > 0.992
+    ) {
+      spawnSquid();
+    }
+  }
+
+  function syncShipForTheme() {
+    if (!spaceship) return;
+
+    if (!isShipEnabled()) {
+      shipState = "idle";
+      spaceship.classList.remove("is-active");
+      spaceship.style.display = "none";
+      trail = [];
+      drawTrail();
+      if (cooldownTimer) {
+        clearTimeout(cooldownTimer);
+        cooldownTimer = null;
+      }
+      if (shipSpawnTimer) {
+        clearTimeout(shipSpawnTimer);
+        shipSpawnTimer = null;
+      }
+      if (trailCanvas) trailCanvas.style.display = "none";
+    } else {
+      spaceship.style.display = "";
+      if (trailCanvas) trailCanvas.style.display = "";
+      if (!prefersReducedMotion && shipState === "idle") {
+        scheduleShipSpawn(1500 + Math.random() * 2500);
+      }
+    }
+
+    if (getThemeMeta().effect === "squid") {
+      initSquids();
+    } else {
+      destroySquids();
+    }
+  }
+
+  document.documentElement.addEventListener("themechange", syncShipForTheme);
+
   if (!prefersReducedMotion) {
     resizeTrailCanvas();
     window.addEventListener("resize", resizeTrailCanvas);
-    setTimeout(spawnShip, 2000 + Math.random() * 4000);
+    syncShipForTheme();
+    scheduleShipSpawn(2000 + Math.random() * 4000);
     updateShip();
   } else {
     spaceship.style.display = "none";
@@ -594,7 +997,7 @@
   }
 
   function updateShipVariant(shipKey) {
-    if (!shipSvg) return;
+    if (!shipSvg || getThemeMeta().shipEnabled === false) return;
     shipSvg.innerHTML = SHIP_SVGS[shipKey] || SHIP_SVGS.fighter;
   }
 
@@ -614,7 +1017,9 @@
     if (!THEMES[themeId]) return;
     document.documentElement.setAttribute("data-theme", themeId);
     localStorage.setItem(THEME_KEY, themeId);
-    updateShipVariant(THEMES[themeId].ship);
+    if (THEMES[themeId].shipEnabled !== false) {
+      updateShipVariant(THEMES[themeId].ship);
+    }
     syncThemeTuner(themeId);
     document.documentElement.dispatchEvent(
       new CustomEvent("themechange", { detail: { theme: themeId } })
