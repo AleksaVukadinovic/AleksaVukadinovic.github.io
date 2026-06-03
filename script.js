@@ -12,6 +12,17 @@
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  function getStarRgb() {
+    return (
+      getComputedStyle(document.documentElement).getPropertyValue("--star-rgb").trim() ||
+      "255, 255, 255"
+    );
+  }
+
+  function starColor(alpha) {
+    return `rgba(${getStarRgb()}, ${alpha})`;
+  }
+
   function resizeCanvas() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = window.innerWidth * dpr;
@@ -54,7 +65,7 @@
         if (star.y > window.innerHeight) star.y = 0;
       }
 
-      ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+      ctx.fillStyle = starColor(alpha);
       ctx.fillRect(
         Math.floor(star.x),
         Math.floor(star.y),
@@ -72,7 +83,7 @@
   } else {
     initStars();
     for (const star of stars) {
-      ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+      ctx.fillStyle = starColor(0.6);
       ctx.fillRect(Math.floor(star.x), Math.floor(star.y), star.size, star.size);
     }
   }
@@ -139,7 +150,7 @@
       }
 
       const point = trail[i];
-      trailCtx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.5})`;
+      trailCtx.fillStyle = starColor(opacity * 0.5);
       trailCtx.fillRect(Math.floor(point.x) - 1, Math.floor(point.y) - 1, 3, 3);
     }
   }
@@ -373,19 +384,47 @@
   }
 
   /* --------------------------------------------------------------------------
+     Theme relay — orbital eclipse switch
+     -------------------------------------------------------------------------- */
+  const themeToggle = document.getElementById("theme-toggle");
+  const THEME_KEY = "theme";
+
+  function getTheme() {
+    return document.documentElement.getAttribute("data-theme") || "dark";
+  }
+
+  function syncThemeToggle(theme) {
+    if (!themeToggle) return;
+    themeToggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+    themeToggle.setAttribute(
+      "aria-label",
+      theme === "light"
+        ? "Switch to dark theme (void signal)"
+        : "Switch to light theme (solar signal)"
+    );
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(THEME_KEY, theme);
+    syncThemeToggle(theme);
+  }
+
+  syncThemeToggle(getTheme());
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      applyTheme(getTheme() === "dark" ? "light" : "dark");
+    });
+  }
+
+  /* --------------------------------------------------------------------------
      Header shadow on scroll
      -------------------------------------------------------------------------- */
-  let lastScroll = 0;
   window.addEventListener(
     "scroll",
     () => {
-      const scrollY = window.scrollY;
-      if (scrollY > 40 && scrollY > lastScroll) {
-        header.style.borderBottomColor = "#ffffff";
-      } else if (scrollY < 40) {
-        header.style.borderBottomColor = "#333333";
-      }
-      lastScroll = scrollY;
+      header.classList.toggle("is-scrolled", window.scrollY > 40);
     },
     { passive: true }
   );

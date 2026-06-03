@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
     <meta
       name="description"
       content="Aleksa Vukadinović — CS Student @ MATF"
@@ -15,6 +16,18 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <script>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        var theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
   </head>
   <body>
     <canvas id="starfield" aria-hidden="true"></canvas>
@@ -46,40 +59,68 @@
         <span class="logo__pixel">AV</span>
         <span class="logo__name">Aleksa V.</span>
       </a>
-      <button
-        class="nav-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="site-nav"
-        aria-label="Toggle navigation menu"
-      >
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-      </button>
+
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
+
+      <div class="site-header__tools">
+        <button
+          class="theme-relay"
+          id="theme-toggle"
+          type="button"
+          aria-pressed="false"
+          aria-label="Switch to light theme"
+        >
+          <span class="theme-relay__viewport" aria-hidden="true">
+            <span class="theme-relay__void">
+              <span class="theme-relay__star"></span>
+              <span class="theme-relay__star"></span>
+              <span class="theme-relay__star"></span>
+            </span>
+            <span class="theme-relay__sol">
+              <span class="theme-relay__sun"></span>
+            </span>
+            <span class="theme-relay__disc"></span>
+          </span>
+          <span class="theme-relay__readout pixel-accent" aria-hidden="true">
+            <span class="theme-relay__sig theme-relay__sig--void">sig:void</span>
+            <span class="theme-relay__sig theme-relay__sig--sol">sig:sol</span>
+          </span>
+        </button>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+      </div>
     </header>
 
     <main id="main">
       <section id="hero" class="hero" aria-labelledby="hero-title">
         <div class="hero__decor" aria-hidden="true">
           <svg class="planet planet--1" viewBox="0 0 24 24" width="48" height="48">
-            <rect x="8" y="4" width="8" height="2" fill="#fff" />
-            <rect x="6" y="6" width="12" height="2" fill="#fff" />
-            <rect x="4" y="8" width="16" height="8" fill="#fff" />
-            <rect x="6" y="16" width="12" height="2" fill="#fff" />
-            <rect x="8" y="18" width="8" height="2" fill="#fff" />
-            <rect x="2" y="10" width="4" height="2" fill="#fff" opacity="0.6" />
-            <rect x="18" y="12" width="4" height="2" fill="#fff" opacity="0.6" />
+            <rect x="8" y="4" width="8" height="2" fill="currentColor" />
+            <rect x="6" y="6" width="12" height="2" fill="currentColor" />
+            <rect x="4" y="8" width="16" height="8" fill="currentColor" />
+            <rect x="6" y="16" width="12" height="2" fill="currentColor" />
+            <rect x="8" y="18" width="8" height="2" fill="currentColor" />
+            <rect x="2" y="10" width="4" height="2" fill="currentColor" opacity="0.6" />
+            <rect x="18" y="12" width="4" height="2" fill="currentColor" opacity="0.6" />
           </svg>
           <svg class="planet planet--2" viewBox="0 0 16 16" width="24" height="24">
-            <rect x="4" y="2" width="8" height="2" fill="#fff" />
-            <rect x="2" y="4" width="12" height="8" fill="#fff" />
-            <rect x="4" y="12" width="8" height="2" fill="#fff" />
+            <rect x="4" y="2" width="8" height="2" fill="currentColor" />
+            <rect x="2" y="4" width="12" height="8" fill="currentColor" />
+            <rect x="4" y="12" width="8" height="2" fill="currentColor" />
           </svg>
         </div>
 
@@ -93,13 +134,7 @@
           </p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="#projects">View projects</a>
-            <a
-              class="btn btn--outline"
-              href="assets/CV.pdf"
-              download="Aleksa_Vukadinovic_CV.pdf"
-              type="application/pdf"
-              >Download CV</a
-            >
+            <a class="btn btn--outline" href="assets/CV.pdf" download="Aleksa_Vukadinovic_CV.pdf">Download CV</a>
           </div>
         </div>
 
