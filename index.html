@@ -1,582 +1,324 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>alexv</title>
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        />
-        <link rel="stylesheet" href="index.css">
-    </head>
-    <body>
-        <canvas id="stars-canvas"></canvas>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Aleksa Vukadinović — CS Student @ MATF"
+    />
+    <title>Aleksa Vukadinović · Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="starfield" aria-hidden="true"></canvas>
+    <canvas id="ship-trail" aria-hidden="true"></canvas>
 
-        <nav class="glass">
-            <a href="#hero">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
+    <div id="spaceship" class="spaceship" aria-hidden="true">
+      <svg
+        class="spaceship__svg"
+        viewBox="0 0 16 12"
+        width="32"
+        height="24"
+        aria-hidden="true"
+      >
+        <rect x="6" y="0" width="4" height="2" fill="currentColor" />
+        <rect x="4" y="2" width="8" height="4" fill="currentColor" />
+        <rect x="2" y="6" width="12" height="2" fill="currentColor" />
+        <rect x="0" y="8" width="4" height="2" fill="currentColor" />
+        <rect x="12" y="8" width="4" height="2" fill="currentColor" />
+        <rect x="6" y="8" width="4" height="4" fill="currentColor" />
+      </svg>
+    </div>
 
-        <section id="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Aleksa Vukadinović</h1>
-                    <h2>Data Engineer & Computer Science Student</h2>
-                    <p>
-                        Building scalable data systems and solving complex
-                        problems through innovative engineering
-                    </p>
-                    <div class="btn-group">
-                        <a href="#contact" class="btn btn-primary"
-                            >Get in Touch</a
-                        >
-                        <a href="#projects" class="btn btn-secondary"
-                            >View Projects</a
-                        >
-                        <a
-                            href="./assets/CV.pdf"
-                            class="btn btn-secondary"
-                            download="Aleksa_Vukadinovic_CV.pdf"
-                            >Download CV</a
-                        >
-                    </div>
-                </div>
+    <div id="lasers" class="lasers" aria-hidden="true"></div>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <a class="logo" href="#hero" aria-label="Aleksa Vukadinović — home">
+        <span class="logo__pixel">AV</span>
+        <span class="logo__name">Aleksa V.</span>
+      </a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="hero" class="hero" aria-labelledby="hero-title">
+        <div class="hero__decor" aria-hidden="true">
+          <svg class="planet planet--1" viewBox="0 0 24 24" width="48" height="48">
+            <rect x="8" y="4" width="8" height="2" fill="#fff" />
+            <rect x="6" y="6" width="12" height="2" fill="#fff" />
+            <rect x="4" y="8" width="16" height="8" fill="#fff" />
+            <rect x="6" y="16" width="12" height="2" fill="#fff" />
+            <rect x="8" y="18" width="8" height="2" fill="#fff" />
+            <rect x="2" y="10" width="4" height="2" fill="#fff" opacity="0.6" />
+            <rect x="18" y="12" width="4" height="2" fill="#fff" opacity="0.6" />
+          </svg>
+          <svg class="planet planet--2" viewBox="0 0 16 16" width="24" height="24">
+            <rect x="4" y="2" width="8" height="2" fill="#fff" />
+            <rect x="2" y="4" width="12" height="8" fill="#fff" />
+            <rect x="4" y="12" width="8" height="2" fill="#fff" />
+          </svg>
+        </div>
+
+        <div class="hero__content">
+          <p class="hero__greeting pixel-accent">// signal detected</p>
+          <h1 id="hero-title" class="hero__title">
+            Hi, I'm <span class="hero__name">Aleksa Vukadinović</span>.
+          </h1>
+          <p class="hero__subtitle">
+              CS Student @ MATF, Data Engineer @ Nordeus
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">View projects</a>
+            <a class="btn btn--outline" href="./assets/CV.pdf" download="Aleksa_Vukadinovic_CV.pdf"
+              >Download CV</a
+            >
+          </div>
+        </div>
+
+        <a class="hero__scroll" href="#about" aria-label="Scroll to about section">
+          <span class="pixel-accent">scroll</span>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path
+              d="M12 5v14M5 12l7 7 7-7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </svg>
+        </a>
+      </section>
+
+      <section id="about" class="section about" aria-labelledby="about-title">
+        <header class="section__header">
+          <span class="section__tag pixel-accent">01 · about</span>
+          <h2 id="about-title" class="section__title">About Me</h2>
+        </header>
+
+        <div class="about__grid">
+          <div class="about__bio">
+            <p>
+              Hi, I'm Aleksa - I'm a fourth-year computer science student at the <strong>Faculty of Mathematic</strong>, University of Belgrade. Currently working as a data engineer at <strong>Nordeus</strong>.
+            </p>
+            <p>
+              My work spans low-level C/C++, OpenGL graphics, distributed data systems, machine learning and full-stack development.
+              I love algorithms & optimizations epsecially in lower level languages such as C++.
+            </p>
+          </div>
+
+          <aside class="about__skills" aria-label="Skills and focus areas">
+            <h3 class="about__skills-title pixel-accent">Stack</h3>
+            <ul class="skill-list">
+              <li>
+                <span class="skill-list__label">Languages</span>
+                <span>C++, Python, JavaScript, TypeScript, Java, Haskell</span>
+              </li>
+              <li>
+                <span class="skill-list__label">Data</span>
+                <span>PostgreSQL, MongoDB</span>
+              </li>
+              <li>
+                <span class="skill-list__label">Web</span>
+                <span>React, Vue, Vite, Next.js, Node.js, Docker</span>
+              </li>
+            </ul>
+
+            <div class="chips" aria-label="Specializations">
+              <span class="chip">Data Engineering</span>
+              <span class="chip">AI / ML</span>
+              <span class="chip">OpenGL</span>
+              <span class="chip">Algorithms</span>
             </div>
-        </section>
+          </aside>
+        </div>
+      </section>
 
-        <section id="about">
-            <div class="container">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-grid">
-                    <div class="profile-card glass">
-                        <div class="profile-image">
-                            <img
-                                src="assets/ja.jpeg"
-                                alt="Aleksa Vukadinović"
-                            />
-                        </div>
-                    </div>
-                    <div class="about-text">
-                        <p>
-                            👋 Hi there! I'm Aleksa Vukadinović, a 4th-year
-                            Computer Science student at the
-                            <strong
-                                >Faculty of Mathematics, University of
-                                Belgrade</strong
-                            >.
-                        </p>
-                        <p>
-                            Currently working as a
-                            <strong>Data Engineer at Nordeus</strong>, I
-                            specialize in building scalable data pipelines and
-                            systems that power data-driven decision making. I'm
-                            passionate about tackling complex engineering
-                            challenges and creating robust solutions that make a
-                            real impact.
-                        </p>
-                        <p>
-                            My technical journey spans from low-level
-                            programming to modern data engineering, with a keen
-                            interest in exploring cutting-edge technologies
-                            across AI, computer graphics, and distributed
-                            systems.
-                        </p>
-                        <h3
-                            style="
-                                color: var(--primary);
-                                margin-top: 32px;
-                                margin-bottom: 16px;
-                            "
-                        >
-                            Passionate About
-                        </h3>
-                        <div class="interests">
-                            <span class="interest-tag"
-                                ><i class="fas fa-database"></i> Data
-                                Engineering</span
-                            >
-                            <span class="interest-tag"
-                                ><i class="fas fa-brain"></i> Artificial
-                                Intelligence</span
-                            >
-                            <span class="interest-tag"
-                                ><i class="fas fa-palette"></i> Computer
-                                Graphics</span
-                            >
-                            <span class="interest-tag"
-                                ><i class="fas fa-code"></i> Compilers &
-                                Languages</span
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <section id="projects" class="section projects" aria-labelledby="projects-title">
+        <header class="section__header">
+          <span class="section__tag pixel-accent">02 · projects</span>
+          <h2 id="projects-title" class="section__title">Projects</h2>
+        </header>
 
-        <section id="skills">
-            <div class="container">
-                <h2 class="section-title">Tech Stack</h2>
-                <div class="skills-grid">
-                    <div class="skill-card glass">
-                        <h3>Programming Languages</h3>
-                        <div class="skill-icons">
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
-                                    alt="C"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
-                                    alt="C++"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                                    alt="Python"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-                                    alt="JavaScript"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-                                    alt="TypeScript"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-                                    alt="Java"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"
-                                    alt="C#"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haskell/haskell-original.svg"
-                                    alt="Haskell"
-                                />
-                            </div>
-                        </div>
-                    </div>
+        <div class="projects__grid">
+          <article class="project-card">
+            <header class="project-card__header">
+              <span class="project-card__id pixel-accent">001</span>
+              <h3 class="project-card__title">Starfall Shores</h3>
+            </header>
+            <p class="project-card__desc">
+              Custom OpenGL engine with GLSL shaders, GPU instancing, and bloom
+              post-processing for real-time visuals.
+            </p>
+            <ul class="project-card__tags" aria-label="Technologies">
+              <li>C++</li>
+              <li>OpenGL</li>
+              <li>Graphics</li>
+            </ul>
+            <a
+              class="project-card__link"
+              href="https://github.com/AleksaVukadinovic/Starfall-Shores"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Repository →</a
+            >
+          </article>
 
-                    <div class="skill-card glass">
-                        <h3>Web & Backend</h3>
-                        <div class="skill-icons">
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                                    alt="React"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
-                                    alt="Next.js"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-                                    alt="Node.js"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastify/fastify-original.svg"
-                                    alt="Fastify"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg"
-                                    alt="Vite"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
-                                    alt="Docker"
-                                />
-                            </div>
-                        </div>
-                    </div>
+          <article class="project-card">
+            <header class="project-card__header">
+              <span class="project-card__id pixel-accent">002</span>
+              <h3 class="project-card__title">Task Manager</h3>
+            </header>
+            <p class="project-card__desc">
+              btop-like system monitor with live CPU, GPU, memory, and network
+              telemetry, process management, and configurable alerts — built with
+              Qt6 at the University of Belgrade.
+            </p>
+            <ul class="project-card__tags" aria-label="Technologies">
+              <li>C++</li>
+              <li>Qt6</li>
+              <li>Systems</li>
+            </ul>
+            <a
+              class="project-card__link"
+              href="https://github.com/AleksaVukadinovic/Task-Manager"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Repository →</a
+            >
+          </article>
 
-                    <div class="skill-card glass">
-                        <h3>Databases</h3>
-                        <div class="skill-icons">
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
-                                    alt="MongoDB"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
-                                    alt="PostgreSQL"
-                                />
-                            </div>
-                        </div>
-                    </div>
+          <article class="project-card">
+            <header class="project-card__header">
+              <span class="project-card__id pixel-accent">003</span>
+              <h3 class="project-card__title">Volley of Rockets</h3>
+            </header>
+            <p class="project-card__desc">
+              Physics simulation of projectile trajectories into a tornado field —
+              built for Introduction to Mechanics.
+            </p>
+            <ul class="project-card__tags" aria-label="Technologies">
+              <li>Python</li>
+              <li>Simulation</li>
+              <li>Physics</li>
+            </ul>
+            <a
+              class="project-card__link"
+              href="https://github.com/AleksaVukadinovic/Volley-of-Rockets"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Repository →</a
+            >
+          </article>
 
-                    <div class="skill-card glass">
-                        <h3>Tools & Others</h3>
-                        <div class="skill-icons">
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-                                    alt="Git"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
-                                    alt="GitHub"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
-                                    alt="Postman"
-                                />
-                            </div>
-                            <div class="skill-icon">
-                                <img
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opengl/opengl-original.svg"
-                                    alt="OpenGL"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <article class="project-card">
+            <header class="project-card__header">
+              <span class="project-card__id pixel-accent">004</span>
+              <h3 class="project-card__title">DigitEye</h3>
+            </header>
+            <p class="project-card__desc">
+              Neural network on MNIST with TensorFlow/Keras — configurable layers
+              and epochs, ~90% digit recognition accuracy.
+            </p>
+            <ul class="project-card__tags" aria-label="Technologies">
+              <li>Python</li>
+              <li>TensorFlow</li>
+              <li>AI</li>
+            </ul>
+            <a
+              class="project-card__link"
+              href="https://github.com/AleksaVukadinovic/DigitEye"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Repository →</a
+            >
+          </article>
 
-        <section id="projects">
-            <div class="container">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card glass">
-                        <h3>
-                            <a href="DigitEye.html"
-                                >DigitEye - AI Image Recognition</a
-                            >
-                        </h3>
-                        <p class="project-description">
-                            Developed a neural network using TensorFlow and
-                            Keras, trained on the MNIST dataset for recognizing
-                            handwritten digits with 90% accuracy. Supports
-                            custom parameters like layer count and epochs.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">TensorFlow</span>
-                            <span class="project-tag">Keras</span>
-                            <span class="project-tag">AI</span>
-                        </div>
-                        <div class="project-links">
-                            <a
-                                href="https://github.com/AleksaVukadinovic/DigitEye"
-                                class="project-link"
-                                target="_blank"
-                                ><i class="fab fa-github"></i> GitHub</a
-                            >
-                        </div>
-                    </div>
+          <article class="project-card">
+            <header class="project-card__header">
+              <span class="project-card__id pixel-accent">005</span>
+              <h3 class="project-card__title">AmbroAI</h3>
+            </header>
+            <p class="project-card__desc">
+              Linear regression model predicting allergic reactions by geography
+              and population — built at The Great Hacka hackathon.
+            </p>
+            <ul class="project-card__tags" aria-label="Technologies">
+              <li>Python</li>
+              <li>ML</li>
+              <li>Hackathon</li>
+            </ul>
+          </article>
+        </div>
+      </section>
 
-                    <div class="project-card glass">
-                        <h3>
-                            <a href="StarfallShores.html"
-                                >Starfall Shores - OpenGL Engine</a
-                            >
-                        </h3>
-                        <p class="project-description">
-                            Custom graphics engine utilizing OpenGL and GLSL
-                            shaders. Implemented GPU instancing for efficiency
-                            and bloom post-processing effects for enhanced
-                            visuals.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">C++</span>
-                            <span class="project-tag">OpenGL</span>
-                            <span class="project-tag">GLSL</span>
-                            <span class="project-tag">Graphics</span>
-                        </div>
-                        <div class="project-links">
-                            <a
-                                href="https://github.com/AleksaVukadinovic/Starfall-Shores"
-                                class="project-link"
-                                target="_blank"
-                                ><i class="fab fa-github"></i> GitHub</a
-                            >
-                        </div>
-                    </div>
+      <section id="contact" class="section contact" aria-labelledby="contact-title">
+        <header class="section__header">
+          <span class="section__tag pixel-accent">03 · contact</span>
+          <h2 id="contact-title" class="section__title">Contact</h2>
+        </header>
 
-                    <div class="project-card glass">
-                        <h3>
-                            <a href="RocketVolley.html"
-                                >Volley of Rockets - Physics Simulation</a
-                            >
-                        </h3>
-                        <p class="project-description">
-                            Python simulation modeling projectile trajectories
-                            launched into a tornado with varying angles and
-                            velocities. Created for Introduction to Mechanics
-                            course.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Simulation</span>
-                            <span class="project-tag">Physics</span>
-                        </div>
-                        <div class="project-links">
-                            <a
-                                href="https://github.com/AleksaVukadinovic/Volley-of-Rockets"
-                                class="project-link"
-                                target="_blank"
-                                ><i class="fab fa-github"></i> GitHub</a
-                            >
-                        </div>
-                    </div>
+        <p class="contact__intro">Open to collaborations, new projects, and interesting ideas. Reach out through any of the links below.</p>
 
-                    <div class="project-card glass">
-                        <h3>AmbroAI - Allergy Prediction</h3>
-                        <p class="project-description">
-                            AI model based on linear regression predicting
-                            allergic reactions within populations based on
-                            geographic location and size. Developed during 'The
-                            Great Hacka' hackathon.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">AI</span>
-                            <span class="project-tag">Regression</span>
-                        </div>
-                    </div>
+        <ul class="contact-links" aria-label="Social and contact links">
+          <li>
+            <a class="contact-link" href="https://github.com/AleksaVukadinovic" target="_blank" rel="noopener noreferrer" aria-label="GitHub — AleksaVukadinovic">
+              <svg class="contact-link__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                <path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              <span class="contact-link__label pixel-accent">GitHub</span>
+              <span class="contact-link__value">AleksaVukadinovic</span>
+            </a>
+          </li>
+          <li>
+            <a class="contact-link" href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn — Aleksa Vukadinović">
+              <svg class="contact-link__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                <path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a-1.998 1.998 0 10-.001-3.996 1.998 1.998 0 00.001 3.996zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+              <span class="contact-link__label pixel-accent">LinkedIn</span>
+              <span class="contact-link__value">Aleksa Vukadinović</span>
+            </a>
+          </li>
+          <li>
+            <a class="contact-link" href="mailto:alexvukadin8@gmail.com" aria-label="Email — alexvukadin8@gmail.com">
+              <svg class="contact-link__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                <path fill="currentColor" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
+              </svg>
+              <span class="contact-link__label pixel-accent">Gmail</span>
+              <span class="contact-link__value">alexvukadin8@gmail.com</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </main>
 
-                    <div class="project-card glass">
-                        <h3>
-                            <a href="KIAA.html"
-                                >KIAA - Algorithm Course Materials</a
-                            >
-                        </h3>
-                        <p class="project-description">
-                            C++ code materials implementing advanced data
-                            structures like Tries, Segment Trees, Fenwick Trees,
-                            and algorithms such as FFT, KMP, Z-array, and
-                            Manacher.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">C++</span>
-                            <span class="project-tag">Algorithms</span>
-                            <span class="project-tag">Data Structures</span>
-                        </div>
-                        <div class="project-links">
-                            <a
-                                href="https://github.com/AleksaVukadinovic/KIAA"
-                                class="project-link"
-                                target="_blank"
-                                ><i class="fab fa-github"></i> GitHub</a
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <footer class="site-footer">
+      <p><span class="pixel-accent">© <span id="year"></span> Aleksa Vukadinović</span> · Belgrade, Serbia</p>
+      <a href="#hero" class="site-footer__top pixel-accent">Back to top ↑</a>
+    </footer>
 
-        <section id="contact">
-            <div class="container">
-                <h2 class="section-title">Get in Touch</h2>
-                <p
-                    style="
-                        text-align: center;
-                        color: var(--text-dim);
-                        margin-bottom: 40px;
-                        font-size: 1.1rem;
-                    "
-                >
-                    I'm always open to discussing new projects, creative ideas,
-                    or opportunities to collaborate
-                </p>
-                <div class="contact-grid">
-                    <a href="https://github.com/AleksaVukadinovic" class="contact-card glass" target="_blank">
-                        <div class="contact-icon"><i class="fab fa-github"></i></div>
-                        <h3>GitHub</h3>
-                        <p>AleksaVukadinovic</p>
-                    </a>
-                    <a href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/" class="contact-card glass" target="_blank">
-                        <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
-                        <h3>LinkedIn</h3>
-                        <p>Aleksa Vukadinović</p>
-                    </a>
-                    <a href="https://discord.com/users/506139588243488788" class="contact-card glass" target="_blank">
-                        <div class="contact-icon"><i class="fab fa-discord"></i></div>
-                        <h3>Discord</h3>
-                        <p>aleksa7407</p>
-                    </a>
-                    <a href="mailto:alexvukadin8@gmail.com" class="contact-card glass">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <h3>Email</h3>
-                        <p>alexvukadin8@gmail.com</p>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <div class="container">
-                <div class="social-links">
-                    <a
-                        href="https://github.com/AleksaVukadinovic"
-                        class="social-link"
-                        target="_blank"
-                        ><i class="fab fa-github"></i
-                    ></a>
-                    <a
-                        href="https://www.linkedin.com/in/aleksa-vukadinovic-19aa24295/"
-                        class="social-link"
-                        target="_blank"
-                        ><i class="fab fa-linkedin"></i
-                    ></a>
-                    <a href="https://discord.com/users/506139588243488788" class="social-link" target="_blank">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                    <a href="mailto:alexvukadin8@gmail.com" class="social-link"
-                        ><i class="fas fa-envelope"></i
-                    ></a>
-                </div>
-                <p style="color: var(--text-dim)">
-                    © <span id="year"></span> Aleksa Vukadinović. All rights reserved.
-                </p>
-            </div>
-        </footer>
-
-        <script>
-            // Animated stars background
-            const canvas = document.getElementById("stars-canvas");
-            const ctx = canvas.getContext("2d");
-
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const stars = [];
-            const starCount = 200;
-
-            for (let i = 0; i < starCount; i++) {
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.5,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    opacity: Math.random(),
-                });
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                stars.forEach((star) => {
-                    ctx.beginPath();
-                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(139, 92, 246, ${star.opacity})`;
-                    ctx.fill();
-
-                    star.x += star.vx;
-                    star.y += star.vy;
-
-                    if (star.x < 0 || star.x > canvas.width) star.vx *= -1;
-                    if (star.y < 0 || star.y > canvas.height) star.vy *= -1;
-
-                    star.opacity += (Math.random() - 0.5) * 0.02;
-                    star.opacity = Math.max(0.2, Math.min(1, star.opacity));
-                });
-
-                requestAnimationFrame(animate);
-            }
-
-            animate();
-
-            window.addEventListener("resize", () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-
-            document.getElementById("year").textContent = new Date().getFullYear();
-
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                anchor.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(
-                        this.getAttribute("href"),
-                    );
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                        });
-                    }
-                });
-            });
-
-            // Navigation hide/show on scroll
-            (function () {
-                const nav = document.querySelector('nav');
-                if (!nav) return;
-
-                let lastScrollY = window.scrollY;
-                let lastDownPosition = window.scrollY; // Tracks the point where user last scrolled down
-                const revealThreshold = 100; // Required scroll distance (px) to reveal
-                let ticking = false;
-
-                window.addEventListener('scroll', () => {
-                    if (!ticking) {
-                        window.requestAnimationFrame(() => {
-                            const currentScrollY = window.scrollY;
-
-                            // 1. If at the very top, always show it
-                            if (currentScrollY <= 50) {
-                                nav.classList.remove('nav-hidden');
-                            } 
-                            // 2. Scrolling Down
-                            else if (currentScrollY > lastScrollY) {
-                                nav.classList.add('nav-hidden');
-                                // Reset the "lowest point" reached
-                                lastDownPosition = currentScrollY;
-                            } 
-                            // 3. Scrolling Up
-                            else {
-                                // Check if we've moved up by more than the threshold
-                                const upwardDistance = lastDownPosition - currentScrollY;
-                                if (upwardDistance > revealThreshold) {
-                                    nav.classList.remove('nav-hidden');
-                                }
-                            }
-
-                            lastScrollY = currentScrollY;
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-                }, { passive: true });
-            })();
-        </script>
-    </body>
+    <script src="script.js"></script>
+  </body>
 </html>
